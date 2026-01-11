@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { ArrowLeft, Github, ExternalLink } from 'lucide-react'
+import { ArrowLeft, Github } from 'lucide-react'
 
 interface ProjectData {
   id: string
