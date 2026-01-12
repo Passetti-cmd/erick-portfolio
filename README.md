@@ -1,14 +1,15 @@
 # Erick Passetti - Portfolio
 
-Modern, interactive portfolio website built with React, TypeScript, and Tailwind CSS.
+Professional portfolio website showcasing backend engineering, automation, and cloud infrastructure expertise. Built with React, TypeScript, and modern web technologies.
 
 ## Features
 
-- 🎨 Modern, clean design with European-style technical focus
-- ✨ Smooth animations and interactions using Framer Motion
-- 📱 Fully responsive design
-- 🚀 Optimized for performance
-- 🌙 Dark theme with glassmorphism effects
+- Modern, clean design with technical focus
+- Smooth animations and interactions using Framer Motion
+- Fully responsive design
+- Optimized for performance
+- Dark theme with glassmorphism effects
+- Deployed on GitHub Pages
 
 ## Tech Stack
 
@@ -23,55 +24,27 @@ Modern, interactive portfolio website built with React, TypeScript, and Tailwind
 
 ### Prerequisites
 
-- Node.js 18+ and npm/yarn/pnpm
+- Node.js 18+ and npm
 
 ### Installation
 
 ```bash
-# Install dependencies
 npm install
-
-# Start development server
 npm run dev
+```
 
-# Build for production
+### Build
+
+```bash
 npm run build
-
-# Preview production build
-npm run preview
 ```
 
 ## Deployment
 
-This project is ready to deploy on Vercel:
+This project is configured for GitHub Pages deployment using GitHub Actions.
 
-1. Push your code to GitHub
-2. Import the repository on Vercel
-3. Deploy automatically
-
-## Project Structure
-
-```
-src/
-├── components/     # Reusable components
-├── pages/         # Page components
-├── App.tsx        # Main app component
-├── main.tsx       # Entry point
-└── index.css      # Global styles
-```
-
-## Customization
-
-Update the following files to customize the portfolio:
-
-- `src/components/Hero.tsx` - Landing section
-- `src/components/Projects.tsx` - Project cards
-- `src/pages/ProjectDetails.tsx` - Project detail pages
-- `src/components/Experience.tsx` - Work experience
-- `src/components/Skills.tsx` - Skills section
-- `src/components/Contact.tsx` - Contact information
+The site is automatically deployed on push to the main branch.
 
 ## License
 
 MIT
-

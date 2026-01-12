@@ -72,7 +72,7 @@ const Contact = () => {
               <div>
                 <p className="text-slate-400 text-sm">Location</p>
                 <p className="text-slate-100">
-                  Sao Paulo, Brazil - Open to relocation / Remote
+                  Open to relocation / Remote work
                 </p>
               </div>
             </motion.div>

@@ -1,26 +1,26 @@
-import { motion } from 'framer-motion'
-import { GraduationCap } from 'lucide-react'
+import { motion } from "framer-motion";
+import { GraduationCap } from "lucide-react";
 
 const education = [
   {
     degree: "Associate's Degree",
-    field: 'Systems Analysis and Development',
-    institution: 'Universidade São Judas Tadeu',
-    period: 'Jun 2024 – Dec 2026',
-    status: 'In Progress',
+    field: "Systems Analysis and Development",
+    institution: "Universidade São Judas Tadeu",
+    period: "Jun 2024 – Dec 2026",
+    status: "In Progress",
     description:
       'Focused on practical software development projects, self-directed study, and continuous improvement in backend development, data analysis, and cloud technologies. Undergraduate program emphasizing software engineering fundamentals, backend development, databases, and systems architecture.',
-    skills: ['Backend Development', 'Python', 'Software Engineering', 'Databases', 'Systems Architecture'],
+    skills: ["Backend Development", "Python", "Software Engineering", "Databases", "Systems Architecture"],
   },
   {
-    degree: 'Middle School Diploma',
-    field: 'General Education',
-    institution: 'Bridgewater Middle School',
-    period: 'Feb 2017 – Feb 2019',
-    location: 'Orlando, FL, USA',
+    degree: "Middle School Diploma",
+    field: "General Education",
+    institution: "Bridgewater Middle School",
+    period: "Feb 2017 – Feb 2019",
+    location: "Orlando, FL, USA",
     description:
       'Completed middle school education in the United States. This international academic experience strengthened English fluency, cultural adaptability, and ability to communicate in multicultural environments. Developed a global mindset and early exposure to international collaboration, valuable skills for working in global technology teams.',
-    skills: ['English'],
+    skills: ["English"],
   },
 ]
 
@@ -94,8 +94,8 @@ const Education = () => {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Education
+export default Education;
 

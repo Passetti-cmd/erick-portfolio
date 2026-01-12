@@ -5,8 +5,7 @@ import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
 
 function App() {
-  // Get base path for GitHub Pages
-  const basename = "/Site-portfolio";
+  const basename = "/erick-portfolio";
 
   return (
     <Router basename={basename}>
