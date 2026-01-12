@@ -1,17 +1,17 @@
-import { motion } from 'framer-motion'
-import { ArrowDown, Download, Github, Linkedin } from 'lucide-react'
+import { motion } from "framer-motion";
+import { ArrowDown, Download, Github, Linkedin } from "lucide-react";
 
 const Hero = () => {
   const stack = [
-    'Python',
-    'TypeScript',
-    'Node.js',
-    'FastAPI',
-    'AWS',
-    'PostgreSQL',
-    'SQL',
-    'Power BI',
-  ]
+    "Python",
+    "TypeScript",
+    "Node.js",
+    "FastAPI",
+    "AWS",
+    "PostgreSQL",
+    "SQL",
+    "Power BI",
+  ];
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -21,12 +21,12 @@ const Hero = () => {
         staggerChildren: 0.1,
       },
     },
-  }
+  };
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 },
-  }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 relative overflow-hidden">
@@ -64,8 +64,9 @@ const Hero = () => {
           variants={itemVariants}
           className="text-base md:text-lg text-slate-400 mb-12 max-w-3xl mx-auto leading-relaxed"
         >
-          Backend engineer specializing in Python, TypeScript, and cloud infrastructure. 
-          Building production-ready automation systems, APIs, and data pipelines on AWS.
+          Backend engineer specializing in Python, TypeScript, and cloud
+          infrastructure. Building production-ready automation systems, APIs,
+          and data pipelines on AWS.
         </motion.p>
 
         <motion.div
@@ -94,16 +95,18 @@ const Hero = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={(e) => {
-              e.preventDefault()
-              document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' })
+              e.preventDefault();
+              document
+                .querySelector("#projects")
+                ?.scrollIntoView({ behavior: "smooth" });
             }}
             className="px-6 py-3 bg-cyan-500 hover:bg-cyan-600 text-white rounded-lg font-medium transition-colors flex items-center gap-2"
           >
             View Projects
           </motion.a>
           <motion.a
-            href="/cv.pdf"
-            download
+            href="/Curriculum.pdf"
+            download="Erick_Passetti_CV.pdf"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="px-6 py-3 glass hover:border-cyan-500/50 text-slate-300 rounded-lg font-medium transition-colors flex items-center gap-2"
@@ -112,7 +115,7 @@ const Hero = () => {
             Download CV
           </motion.a>
           <motion.a
-            href="https://github.com"
+            href="https://github.com/Passetti-cmd"
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ scale: 1.05 }}
@@ -123,7 +126,7 @@ const Hero = () => {
             GitHub
           </motion.a>
           <motion.a
-            href="https://linkedin.com"
+            href="https://www.linkedin.com/in/erick-passetti"
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ scale: 1.05 }}
@@ -148,8 +151,7 @@ const Hero = () => {
         </motion.div>
       </motion.div>
     </div>
-  )
-}
+  );
+};
 
-export default Hero
-
+export default Hero;

@@ -1,48 +1,67 @@
-import { motion } from 'framer-motion'
-import { useNavigate } from 'react-router-dom'
-import { ExternalLink, Github } from 'lucide-react'
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import { ExternalLink, Github } from "lucide-react";
 
 interface Project {
-  id: string
-  title: string
-  description: string
-  techStack: string[]
-  tags: string[]
-  githubUrl: string
+  id: string;
+  title: string;
+  description: string;
+  techStack: string[];
+  tags: string[];
+  githubUrl: string;
 }
 
 const projects: Project[] = [
   {
-    id: 'cloud-automation-platform',
-    title: 'Cloud-Based Automation Platform',
+    id: "public-tender-radar",
+    title: "Public Tender Radar",
     description:
-      'Production automation system running on AWS EC2 and S3, handling process automation bots that interact with third-party platforms via APIs and web automation. Includes monitoring, logging, and error recovery.',
-    techStack: ['Python', 'TypeScript', 'Node.js', 'AWS EC2', 'AWS S3', 'Playwright'],
-    tags: ['Cloud Infrastructure', 'Automation', 'AWS', 'Production System'],
-    githubUrl: 'https://github.com',
+      "AI-powered procurement platform that helps companies discover and manage public tenders in Brazil. Features intelligent matching, ML-based scoring, multi-language support, and automated web scraping from multiple portals.",
+    techStack: [
+      "Python",
+      "FastAPI",
+      "React",
+      "TypeScript",
+      "MySQL",
+      "Playwright",
+      "AI/ML",
+    ],
+    tags: [
+      "Full-Stack",
+      "AI/ML",
+      "Web Scraping",
+      "Multi-language",
+      "Production",
+    ],
+    githubUrl: "https://github.com/Passetti-cmd/radar-bidding",
   },
   {
-    id: 'backend-api-services',
-    title: 'Backend API Services',
+    id: "secure-task-management-api",
+    title: "Secure Task Management API",
     description:
-      'Production-ready backend services and APIs built with TypeScript (Node.js) and Python, supporting a health insurance platform used by brokers. Includes database operations, authentication, and cloud deployments.',
-    techStack: ['TypeScript', 'Node.js', 'Python', 'FastAPI', 'PostgreSQL', 'JWT'],
-    tags: ['Backend Development', 'REST API', 'Production', 'Cloud'],
-    githubUrl: 'https://github.com',
+      "Production-ready RESTful API with JWT authentication and strict data isolation. Demonstrates secure authentication, input validation, error handling, and multi-tenant data separation at the database level.",
+    techStack: ["Node.js", "TypeScript", "Express", "MongoDB", "JWT", "Zod"],
+    tags: ["Backend Development", "REST API", "Security", "Production"],
+    githubUrl: "https://github.com/Passetti-cmd/Management-API",
   },
   {
-    id: 'data-analytics-pipelines',
-    title: 'Data Analytics & ETL Pipelines',
+    id: "data-analytics-pipelines",
+    title: "Data Analytics & ETL Pipelines",
     description:
-      'SQL and Python-based data pipelines for extraction, transformation, and analysis. Includes Power BI dashboards, automated reporting, and data consistency improvements for business intelligence.',
-    techStack: ['Python', 'SQL', 'Power BI', 'Pandas', 'ETL'],
-    tags: ['Data Engineering', 'Analytics', 'Business Intelligence', 'Automation'],
-    githubUrl: 'https://github.com',
+      "SQL and Python-based data pipelines for extraction, transformation, and analysis. Includes Power BI dashboards, automated reporting, and data consistency improvements for business intelligence.",
+    techStack: ["Python", "SQL", "Power BI", "Pandas", "ETL"],
+    tags: [
+      "Data Engineering",
+      "Analytics",
+      "Business Intelligence",
+      "Automation",
+    ],
+    githubUrl: "https://github.com/Passetti-cmd",
   },
-]
+];
 
 const Projects = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   return (
     <section className="py-24 px-4 sm:px-6 lg:px-8">
@@ -129,8 +148,8 @@ const Projects = () => {
                 </motion.a>
                 <motion.button
                   onClick={(e) => {
-                    e.stopPropagation()
-                    navigate(`/project/${project.id}`)
+                    e.stopPropagation();
+                    navigate(`/project/${project.id}`);
                   }}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -145,8 +164,7 @@ const Projects = () => {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Projects
-
+export default Projects;

@@ -1,160 +1,174 @@
-import { useParams, useNavigate } from 'react-router-dom'
-import { motion } from 'framer-motion'
-import { ArrowLeft, Github } from 'lucide-react'
+import { useParams, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import { ArrowLeft, Github } from "lucide-react";
 
 interface ProjectData {
-  id: string
-  title: string
-  problem: string
-  solution: string
-  challenges: string[]
+  id: string;
+  title: string;
+  problem: string;
+  solution: string;
+  challenges: string[];
   architecture: {
-    backend: string[]
-    scraping?: string[]
-    database: string[]
-    frontend?: string[]
-  }
-  security: string[]
-  whyMatters: string
-  githubUrl: string
+    backend: string[];
+    scraping?: string[];
+    database: string[];
+    frontend?: string[];
+  };
+  security: string[];
+  whyMatters: string;
+  githubUrl: string;
 }
 
 const projectData: Record<string, ProjectData> = {
-  'cloud-automation-platform': {
-    id: 'cloud-automation-platform',
-    title: 'Cloud-Based Automation Platform',
+  "public-tender-radar": {
+    id: "public-tender-radar",
+    title: "Public Tender Radar",
     problem:
-      'Health insurance platform requires reliable, scalable automation systems to interact with third-party platforms, process data, and maintain system stability in production environments.',
+      "Companies struggle to discover and manage public tenders (licitações) in Brazil. Manual monitoring across multiple government portals is time-consuming, error-prone, and makes it difficult to identify relevant opportunities that match company profiles.",
     solution:
-      'Built and maintained production automation system running on AWS EC2 and S3, handling process automation bots that interact with third-party platforms via APIs and web automation. Includes comprehensive monitoring, logging, error recovery, and cloud storage management.',
+      "Built a comprehensive full-stack web application with AI-powered matching system that automatically discovers and scores public tenders. The platform uses machine learning to match tenders with company profiles, provides intelligent adherence scoring (0-100), and offers multi-language support (Portuguese, English, German). Includes automated web scraping from multiple Brazilian tender portals, multi-user company management, and comprehensive notification system.",
     challenges: [
-      'Maintaining automation bots that adapt to frequently changing external systems',
-      'Monitoring and debugging failures in cloud environments',
-      'Ensuring system stability and reliability in production',
-      'Managing cloud resources (EC2, S3) efficiently',
-      'Handling error recovery and task reruns',
-      'Integrating AI resources for automation support',
+      "Implementing AI-powered keyword matching across multiple data sources",
+      "Building reliable multi-portal web scraper with Playwright",
+      "Designing ML-based adherence scoring algorithm (0-100 scale)",
+      "Creating multi-language support with internationalization",
+      "Ensuring data consistency across multiple scraping sources",
+      "Handling dynamic website structures and anti-scraping measures",
+      "Implementing secure multi-tenant data isolation",
+      "Optimizing database queries for large-scale tender data",
     ],
     architecture: {
       backend: [
-        'Python for automation scripts',
-        'TypeScript (Node.js) for backend services',
-        'Cloud-based deployment on AWS',
+        "FastAPI (Python) with async/await support",
+        "RESTful API design with comprehensive error handling",
+        "JWT authentication with password hashing (bcrypt)",
       ],
       scraping: [
-        'Playwright for web automation',
-        'API integration with third-party platforms',
-        'Automated navigation and data extraction',
+        "Playwright for multi-threaded web scraping",
+        "Multi-portal support (PNCP, ComprasNet)",
+        "Automated navigation and data extraction",
+        "Retry and timeout handling",
       ],
       database: [
-        'AWS S3 for cloud storage',
-        'SQL databases for data consistency',
-        'Log management and monitoring',
+        "MySQL with SQLAlchemy ORM",
+        "Indexed queries for performance",
+        "User-based data isolation",
+        "Audit logging for compliance",
+      ],
+      frontend: [
+        "React 18 with TypeScript",
+        "Tailwind CSS for responsive design",
+        "Custom i18n system with localStorage",
+        "React Router with protected routes",
       ],
     },
     security: [
-      'Environment-based configuration',
-      'Secure API integrations',
-      'Cloud security best practices',
-      'Error logging and monitoring',
-      'Version control with Git/GitHub',
-      'Code review processes',
+      "JWT-based authentication",
+      "Password hashing with bcrypt",
+      "Input validation with Pydantic",
+      "CORS configuration",
+      "SQL injection prevention (SQLAlchemy ORM)",
+      "Environment variable management",
+      "Multi-tenant data isolation",
     ],
     whyMatters:
-      'Demonstrates production-level cloud engineering, automation expertise, and ability to maintain critical systems in real-world environments. Shows experience with AWS infrastructure and production operations.',
-    githubUrl: 'https://github.com',
+      "Demonstrates full-stack development expertise, AI/ML integration, web scraping capabilities, and internationalization skills. Shows ability to build production-ready systems that solve real-world business problems with modern technologies.",
+    githubUrl: "https://github.com/Passetti-cmd/radar-bidding",
   },
-  'backend-api-services': {
-    id: 'backend-api-services',
-    title: 'Backend API Services',
+  "secure-task-management-api": {
+    id: "secure-task-management-api",
+    title: "Secure Task Management API",
     problem:
-      'Health insurance platform used by brokers requires robust, scalable backend services and APIs to support business operations, handle authentication, and manage data efficiently.',
+      "Need for a production-ready RESTful API with complete user data isolation and secure authentication mechanisms. Each user must only access their own tasks, ensuring privacy and security at the database query level.",
     solution:
-      'Developed and maintained production-ready backend services and APIs using TypeScript (Node.js) and Python, supporting a health insurance platform. Includes database operations, authentication, cloud deployments, and cross-functional collaboration.',
+      "Built a scalable task management API with JWT authentication, type-safe request validation using Zod, and complete user data isolation using MongoDB. The system implements stateless authentication, comprehensive input validation, centralized error handling, and multi-tenant data separation. Demonstrates production-ready backend engineering practices including secure authentication, error handling, and data isolation.",
     challenges: [
-      'Building scalable backend services for production use',
-      'Implementing secure authentication and authorization',
-      'Optimizing database queries for performance',
-      'Managing cloud-based deployments',
-      'Ensuring system reliability and performance',
-      'Collaborating with cross-functional teams',
+      "Implementing secure JWT token management",
+      "Ensuring complete data isolation between users at database level",
+      "Type-safe API validation with Zod schemas",
+      "Handling concurrent requests efficiently",
+      "Database query optimization for performance",
+      "Centralized error handling and validation",
+      "Stateless authentication architecture",
     ],
     architecture: {
       backend: [
-        'TypeScript (Node.js)',
-        'Python (FastAPI)',
-        'RESTful API design',
-        'JWT authentication',
+        "Node.js with TypeScript",
+        "Express.js framework",
+        "RESTful API design",
+        "JWT authentication middleware",
       ],
       database: [
-        'PostgreSQL',
-        'SQL databases',
-        'Data consistency management',
+        "MongoDB",
+        "User-based collections",
+        "Indexed queries",
+        "Data isolation at query level",
       ],
     },
     security: [
-      'JWT-based authentication',
-      'Secure API endpoints',
-      'Input validation',
-      'Environment variable management',
-      'Code review and quality practices',
-      'Production security standards',
+      "JWT token-based authentication",
+      "Password hashing with bcrypt",
+      "Zod schema validation",
+      "Rate limiting",
+      "CORS configuration",
+      "Environment variable management",
+      "Complete user data isolation",
     ],
     whyMatters:
-      'Shows production-level backend development skills, API design expertise, and ability to work with modern TypeScript and Python stacks in real-world business applications.',
-    githubUrl: 'https://github.com',
+      "Demonstrates production-level API development with focus on security, type safety, and scalable architecture patterns. Shows expertise in secure authentication, data isolation, and modern TypeScript backend development.",
+    githubUrl: "https://github.com/Passetti-cmd/Management-API",
   },
-  'data-analytics-pipelines': {
-    id: 'data-analytics-pipelines',
-    title: 'Data Analytics & ETL Pipelines',
+  "data-analytics-pipelines": {
+    id: "data-analytics-pipelines",
+    title: "Data Analytics & ETL Pipelines",
     problem:
-      'Organizations need reliable data pipelines to extract, transform, and analyze data from multiple sources, enabling data-driven decision-making through automated reporting and dashboards.',
+      "Organizations need reliable data pipelines to extract, transform, and analyze data from multiple sources, enabling data-driven decision-making through automated reporting and dashboards.",
     solution:
-      'Developed SQL and Python-based data pipelines for extraction, transformation, and analysis. Created Power BI dashboards and automated reporting systems, improving data consistency and enabling business intelligence for stakeholders.',
+      "Developed SQL and Python-based data pipelines for extraction, transformation, and analysis. Created Power BI dashboards and automated reporting systems, improving data consistency and enabling business intelligence for stakeholders.",
     challenges: [
-      'Building reliable ETL pipelines for data extraction and transformation',
-      'Creating meaningful dashboards and reports in Power BI',
-      'Ensuring data consistency and reliability',
-      'Automating manual data workflows',
-      'Translating business requirements into data models',
-      'Optimizing data processing performance',
+      "Building reliable ETL pipelines for data extraction and transformation",
+      "Creating meaningful dashboards and reports in Power BI",
+      "Ensuring data consistency and reliability",
+      "Automating manual data workflows",
+      "Translating business requirements into data models",
+      "Optimizing data processing performance",
     ],
     architecture: {
       backend: [
-        'Python for data processing',
-        'SQL for data extraction and queries',
-        'ETL pipeline design',
+        "Python for data processing",
+        "SQL for data extraction and queries",
+        "ETL pipeline design",
       ],
       database: [
-        'SQL databases',
-        'Data modeling',
-        'Data consistency management',
+        "SQL databases",
+        "Data modeling",
+        "Data consistency management",
       ],
     },
     security: [
-      'Data validation and quality checks',
-      'Secure data access',
-      'Error handling and logging',
-      'Automated monitoring',
+      "Data validation and quality checks",
+      "Secure data access",
+      "Error handling and logging",
+      "Automated monitoring",
     ],
     whyMatters:
-      'Demonstrates data engineering capabilities, business intelligence skills, and ability to translate technical work into actionable insights for stakeholders. Shows experience with modern data tools and automation.',
-    githubUrl: 'https://github.com',
+      "Demonstrates data engineering capabilities, business intelligence skills, and ability to translate technical work into actionable insights for stakeholders. Shows experience with modern data tools and automation.",
+    githubUrl: "https://github.com",
   },
-}
+};
 
 const ProjectDetails = () => {
-  const { id } = useParams<{ id: string }>()
-  const navigate = useNavigate()
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
 
-  const project = id ? projectData[id] : null
+  const project = id ? projectData[id] : null;
 
   if (!project) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <p className="text-slate-400">Project not found</p>
       </div>
-    )
+    );
   }
 
   return (
@@ -163,7 +177,7 @@ const ProjectDetails = () => {
         <motion.button
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          onClick={() => navigate('/')}
+          onClick={() => navigate("/")}
           className="flex items-center gap-2 text-slate-400 hover:text-cyan-400 transition-colors mb-8"
         >
           <ArrowLeft className="w-5 h-5" />
@@ -199,14 +213,18 @@ const ProjectDetails = () => {
               <h2 className="text-2xl font-semibold text-cyan-400 mb-3">
                 Problem
               </h2>
-              <p className="text-slate-300 leading-relaxed">{project.problem}</p>
+              <p className="text-slate-300 leading-relaxed">
+                {project.problem}
+              </p>
             </section>
 
             <section>
               <h2 className="text-2xl font-semibold text-cyan-400 mb-3">
                 Solution
               </h2>
-              <p className="text-slate-300 leading-relaxed">{project.solution}</p>
+              <p className="text-slate-300 leading-relaxed">
+                {project.solution}
+              </p>
             </section>
 
             <section>
@@ -278,14 +296,15 @@ const ProjectDetails = () => {
               <h2 className="text-2xl font-semibold text-cyan-400 mb-3">
                 Why This Project Matters
               </h2>
-              <p className="text-slate-300 leading-relaxed">{project.whyMatters}</p>
+              <p className="text-slate-300 leading-relaxed">
+                {project.whyMatters}
+              </p>
             </section>
           </div>
         </motion.div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ProjectDetails
-
+export default ProjectDetails;
