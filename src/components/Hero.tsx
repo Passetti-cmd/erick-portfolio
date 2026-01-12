@@ -105,7 +105,7 @@ const Hero = () => {
             View Projects
           </motion.a>
           <motion.a
-            href="/Curriculum.pdf"
+            href={`${import.meta.env.BASE_URL}Curriculum.pdf`}
             download="Erick_Passetti_CV.pdf"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
