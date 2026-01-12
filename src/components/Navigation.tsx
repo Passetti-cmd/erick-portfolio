@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
 type NavItem = {
@@ -21,6 +21,7 @@ const navItems: NavItem[] = [
 
 const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -34,7 +35,11 @@ const Navigation = () => {
     e: React.MouseEvent<HTMLAnchorElement>,
     href: string
   ) => {
-    if (href.startsWith("#")) {
+    if (href === "/") {
+      e.preventDefault();
+      navigate("/");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else if (href.startsWith("#")) {
       e.preventDefault();
       const element = document.querySelector(href);
       if (element) {
@@ -57,16 +62,34 @@ const Navigation = () => {
             Erick Passetti
           </Link>
           <div className="hidden md:flex space-x-8">
-            {navItems.map((item) => (
-              <a
-                key={item.id}
-                href={item.href}
-                onClick={(e) => handleClick(e, item.href)}
-                className="text-slate-300 hover:text-cyan-400 transition-colors duration-200 text-sm font-medium"
-              >
-                {item.name}
-              </a>
-            ))}
+            {navItems.map((item) => {
+              if (item.href === "/") {
+                return (
+                  <Link
+                    key={item.id}
+                    to="/"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigate("/");
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }}
+                    className="text-slate-300 hover:text-cyan-400 transition-colors duration-200 text-sm font-medium"
+                  >
+                    {item.name}
+                  </Link>
+                );
+              }
+              return (
+                <a
+                  key={item.id}
+                  href={item.href}
+                  onClick={(e) => handleClick(e, item.href)}
+                  className="text-slate-300 hover:text-cyan-400 transition-colors duration-200 text-sm font-medium"
+                >
+                  {item.name}
+                </a>
+              );
+            })}
           </div>
           <div className="md:hidden">
             <MobileMenu items={navItems} />
@@ -79,6 +102,7 @@ const Navigation = () => {
 
 const MobileMenu = ({ items }: { items: NavItem[] }) => {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <>
@@ -119,23 +143,42 @@ const MobileMenu = ({ items }: { items: NavItem[] }) => {
             className="absolute top-16 left-0 right-0 glass border-t border-slate-800"
           >
             <div className="px-4 py-4 space-y-3">
-              {items.map((item: NavItem) => (
-                <a
-                  key={item.id}
-                  href={item.href}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const element = document.querySelector(item.href);
-                    if (element) {
-                      element.scrollIntoView({ behavior: "smooth" });
-                      setOpen(false);
-                    }
-                  }}
-                  className="block text-slate-300 hover:text-cyan-400 transition-colors"
-                >
-                  {item.name}
-                </a>
-              ))}
+              {items.map((item: NavItem) => {
+                if (item.href === "/") {
+                  return (
+                    <Link
+                      key={item.id}
+                      to="/"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        navigate("/");
+                        window.scrollTo({ top: 0, behavior: "smooth" });
+                        setOpen(false);
+                      }}
+                      className="block text-slate-300 hover:text-cyan-400 transition-colors"
+                    >
+                      {item.name}
+                    </Link>
+                  );
+                }
+                return (
+                  <a
+                    key={item.id}
+                    href={item.href}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      const element = document.querySelector(item.href);
+                      if (element) {
+                        element.scrollIntoView({ behavior: "smooth" });
+                        setOpen(false);
+                      }
+                    }}
+                    className="block text-slate-300 hover:text-cyan-400 transition-colors"
+                  >
+                    {item.name}
+                  </a>
+                );
+              })}
             </div>
           </motion.div>
         )}
