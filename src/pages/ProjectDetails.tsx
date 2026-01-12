@@ -13,6 +13,7 @@ interface ProjectData {
     scraping?: string[];
     database: string[];
     frontend?: string[];
+    devops?: string[];
   };
   security: string[];
   whyMatters: string;
@@ -81,15 +82,16 @@ const projectData: Record<string, ProjectData> = {
     problem:
       "Need for a production-ready RESTful API with complete user data isolation and secure authentication mechanisms. Each user must only access their own tasks, ensuring privacy and security at the database query level.",
     solution:
-      "Built a scalable task management API with JWT authentication, type-safe request validation using Zod, and complete user data isolation using MongoDB. The system implements stateless authentication, comprehensive input validation, centralized error handling, and multi-tenant data separation. Demonstrates production-ready backend engineering practices including secure authentication, error handling, and data isolation.",
+      "Built a scalable task management API with JWT authentication and complete user data isolation using MongoDB. The system implements stateless authentication, comprehensive input validation, centralized error handling, and multi-tenant data separation. Containerized with Docker for easy deployment and scalability. Demonstrates production-ready backend engineering practices including secure authentication, error handling, and data isolation.",
     challenges: [
       "Implementing secure JWT token management",
       "Ensuring complete data isolation between users at database level",
-      "Type-safe API validation with Zod schemas",
+      "Type-safe API validation with TypeScript",
       "Handling concurrent requests efficiently",
       "Database query optimization for performance",
       "Centralized error handling and validation",
       "Stateless authentication architecture",
+      "Docker containerization and orchestration",
     ],
     architecture: {
       backend: [
@@ -99,11 +101,16 @@ const projectData: Record<string, ProjectData> = {
         "JWT authentication",
       ],
       database: ["MongoDB", "Mongoose ODM", "Data isolation at query level"],
+      devops: [
+        "Docker containerization",
+        "Docker Compose orchestration",
+        "Multi-container setup",
+      ],
     },
     security: [
       "JWT token-based authentication",
       "Password hashing with bcryptjs",
-      "Zod schema validation",
+      "TypeScript type safety",
       "Rate limiting",
       "CORS configuration",
       "Complete user data isolation",
@@ -112,42 +119,47 @@ const projectData: Record<string, ProjectData> = {
       "Demonstrates production-level API development with focus on security, type safety, and scalable architecture patterns. Shows expertise in secure authentication, data isolation, and modern TypeScript backend development.",
     githubUrl: "https://github.com/Passetti-cmd/Management-API",
   },
-  "data-analytics-pipelines": {
-    id: "data-analytics-pipelines",
-    title: "Data Analytics & ETL Pipelines",
+  "intelligence-log-extractor": {
+    id: "intelligence-log-extractor",
+    title: "Intelligence Log Extractor",
     problem:
-      "Organizations need reliable data pipelines to extract, transform, and analyze data from multiple sources, enabling data-driven decision-making through automated reporting and dashboards.",
+      "Organizations need to extract structured data (dates, monetary values, names) from unstructured text files across multiple languages and international formats. Manual extraction is time-consuming and error-prone, especially when dealing with European, US, and Swiss currency formats.",
     solution:
-      "Developed SQL and Python-based data pipelines for extraction, transformation, and analysis. Created Power BI dashboards and automated reporting systems, improving data consistency and enabling business intelligence for stakeholders.",
+      "Built a professional-grade data engineering platform with FastAPI backend and Streamlit dashboard. The system extracts structured information from unstructured text files, supporting multiple languages (PT, EN, DE, FR, ES), international date formats, and multi-region currency formats (European, US, Swiss). Features real-time analytics, background processing, and Docker containerization for production deployment.",
     challenges: [
-      "Building reliable ETL pipelines for data extraction and transformation",
-      "Creating meaningful dashboards and reports in Power BI",
-      "Ensuring data consistency and reliability",
-      "Automating manual data workflows",
-      "Translating business requirements into data models",
-      "Optimizing data processing performance",
+      "Implementing multi-language date format detection (dd/mm/yyyy, yyyy-mm-dd, German formats)",
+      "Handling international currency formats (European 1.500,50 €, US $1,500.50, Swiss 1'500.00 CHF)",
+      "Extracting Unicode names with accented characters across languages",
+      "Building real-time analytics dashboard with interactive visualizations",
+      "Implementing background job processing for large files",
+      "Creating locale-aware data extraction rules",
     ],
     architecture: {
       backend: [
-        "Python for data processing",
-        "SQL for data extraction and queries",
-        "ETL pipeline design",
+        "FastAPI with async/await support",
+        "Pydantic for data validation",
+        "Pandas for data processing",
+        "Background task processing",
+      ],
+      frontend: [
+        "Streamlit for interactive dashboard",
+        "Plotly for visualizations",
+        "Real-time metrics and KPIs",
       ],
       database: [
-        "SQL databases",
-        "Data modeling",
-        "Data consistency management",
+        "PostgreSQL for persistent storage",
+        "Job tracking and history",
       ],
     },
     security: [
-      "Data validation and quality checks",
-      "Secure data access",
+      "Input validation with Pydantic",
       "Error handling and logging",
-      "Automated monitoring",
+      "Docker containerization",
+      "Environment variable management",
     ],
     whyMatters:
-      "Demonstrates data engineering capabilities, business intelligence skills, and ability to translate technical work into actionable insights for stakeholders. Shows experience with modern data tools and automation.",
-    githubUrl: "https://github.com",
+      "Demonstrates enterprise-level data engineering skills, internationalization capabilities, and production-ready full-stack development. Shows ability to handle complex data extraction requirements suitable for European tech companies.",
+    githubUrl: "https://github.com/Passetti-cmd/Data-Analytics-ETL-Pipelines",
   },
 };
 

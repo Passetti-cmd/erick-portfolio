@@ -74,6 +74,9 @@ const Contact = () => {
                 <p className="text-slate-100">
                   Open to relocation / Remote work
                 </p>
+                <p className="text-slate-400 text-xs mt-1">
+                  EU Work Authorization (Italian Citizenship in progress)
+                </p>
               </div>
             </motion.div>
           </div>
