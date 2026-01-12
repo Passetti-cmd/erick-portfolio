@@ -20,11 +20,12 @@ const projects: Project[] = [
     techStack: [
       "Python",
       "FastAPI",
+      "SQLAlchemy",
       "React",
       "TypeScript",
       "MySQL",
       "Playwright",
-      "AI/ML",
+      "JWT",
     ],
     tags: [
       "Full-Stack",
@@ -40,7 +41,15 @@ const projects: Project[] = [
     title: "Secure Task Management API",
     description:
       "Production-ready RESTful API with JWT authentication and strict data isolation. Demonstrates secure authentication, input validation, error handling, and multi-tenant data separation at the database level.",
-    techStack: ["Node.js", "TypeScript", "Express", "MongoDB", "JWT", "Zod"],
+    techStack: [
+      "Node.js",
+      "TypeScript",
+      "Express",
+      "MongoDB",
+      "Mongoose",
+      "JWT",
+      "Zod",
+    ],
     tags: ["Backend Development", "REST API", "Security", "Production"],
     githubUrl: "https://github.com/Passetti-cmd/Management-API",
   },

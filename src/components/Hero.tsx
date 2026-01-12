@@ -8,7 +8,7 @@ const Hero = () => {
     "Node.js",
     "FastAPI",
     "AWS",
-    "PostgreSQL",
+    "MySQL",
     "SQL",
     "Power BI",
   ];

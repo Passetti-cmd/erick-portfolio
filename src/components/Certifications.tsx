@@ -26,7 +26,7 @@ const certifications = [
     title: 'Data Scientist: The Complete Course',
     issuer: 'Udemy',
     date: 'Nov 2024',
-    skills: ['Scikit-Learn', 'Data Analysis', 'Power BI', 'SQL', 'Data Science', 'Python'],
+    skills: ['Data Analysis', 'Power BI', 'SQL', 'Data Science', 'Python'],
   },
   {
     title: 'Complete Web Development',

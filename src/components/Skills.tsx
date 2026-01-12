@@ -21,7 +21,7 @@ const skillCategories = [
   },
   {
     title: "Databases",
-    skills: ["PostgreSQL", "MongoDB", "MySQL", "SQL"],
+    skills: ["MongoDB", "MySQL", "SQL"],
   },
   {
     title: "Automation & Web",
@@ -29,16 +29,11 @@ const skillCategories = [
   },
   {
     title: "Data & Analytics",
-    skills: ["Pandas", "NumPy", "Scikit-learn", "Power BI", "Data Pipelines"],
+    skills: ["Pandas", "NumPy", "Power BI", "Data Pipelines"],
   },
   {
     title: "AI & Machine Learning",
-    skills: [
-      "Machine Learning",
-      "Deep Learning",
-      "AI Integration",
-      "Neural Networks",
-    ],
+    skills: ["Machine Learning", "Deep Learning", "AI Integration"],
   },
   {
     title: "Tools & Practices",
