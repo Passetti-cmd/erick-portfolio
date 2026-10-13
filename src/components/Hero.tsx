@@ -1,16 +1,16 @@
 import { motion } from "framer-motion";
-import { ArrowDown, Download, Github, Linkedin } from "lucide-react";
+import { ArrowDown, Github, Linkedin } from "lucide-react";
 
 const Hero = () => {
   const stack = [
-    "Python",
-    "TypeScript",
     "Node.js",
-    "FastAPI",
+    "TypeScript",
+    "Python",
+    "Playwright",
+    "REST APIs",
     "AWS",
     "MySQL",
-    "SQL",
-    "Power BI",
+    "Git/GitHub",
   ];
 
   const containerVariants = {
@@ -49,24 +49,17 @@ const Hero = () => {
 
         <motion.h2
           variants={itemVariants}
-          className="text-xl md:text-2xl text-slate-300 mb-2 font-medium"
+          className="text-xl md:text-2xl text-slate-300 mb-8 font-medium"
         >
-          Junior Software Engineer
+          Software Engineer — Backend & Automation
         </motion.h2>
-        <motion.p
-          variants={itemVariants}
-          className="text-lg md:text-xl text-slate-400 mb-8"
-        >
-          Backend, Automation & Data Engineering
-        </motion.p>
 
         <motion.p
           variants={itemVariants}
           className="text-base md:text-lg text-slate-400 mb-12 max-w-3xl mx-auto leading-relaxed"
         >
-          Backend engineer specializing in Python, TypeScript, and cloud
-          infrastructure. Building production-ready automation systems, APIs,
-          and data pipelines on AWS.
+          Backend engineer who builds and operates automation-heavy systems in
+          production using Node.js, TypeScript and Python.
         </motion.p>
 
         <motion.div
@@ -103,16 +96,6 @@ const Hero = () => {
             className="px-6 py-3 bg-cyan-500 hover:bg-cyan-600 text-white rounded-lg font-medium transition-colors flex items-center gap-2"
           >
             View Projects
-          </motion.a>
-          <motion.a
-            href={`${import.meta.env.BASE_URL}Curriculum.pdf`}
-            download="Erick_Passetti_CV.pdf"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="px-6 py-3 glass hover:border-cyan-500/50 text-slate-300 rounded-lg font-medium transition-colors flex items-center gap-2"
-          >
-            <Download className="w-4 h-4" />
-            Download CV
           </motion.a>
           <motion.a
             href="https://github.com/Passetti-cmd"

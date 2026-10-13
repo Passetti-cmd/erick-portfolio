@@ -2,10 +2,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import ProjectDetails from "./pages/ProjectDetails";
 import Navigation from "./components/Navigation";
-import Footer from "./components/Footer";
 
 function App() {
-  const basename = "/erick-portfolio";
+  const basename = import.meta.env.BASE_URL.replace(/\/$/, "") || "/";
 
   return (
     <Router basename={basename}>
@@ -17,7 +16,6 @@ function App() {
             <Route path="/project/:id" element={<ProjectDetails />} />
           </Routes>
         </main>
-        <Footer />
       </div>
     </Router>
   );

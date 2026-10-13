@@ -12,30 +12,16 @@ interface Project {
 }
 
 const projects: Project[] = [
-  {
-    id: "public-tender-radar",
-    title: "Public Tender Radar",
-    description:
-      "AI-powered procurement platform that helps companies discover and manage public tenders in Brazil. Features intelligent matching, ML-based scoring, multi-language support, and automated web scraping from multiple portals.",
-    techStack: [
-      "Python",
-      "FastAPI",
-      "SQLAlchemy",
-      "React",
-      "TypeScript",
-      "MySQL",
-      "Playwright",
-      "JWT",
-    ],
-    tags: [
-      "Full-Stack",
-      "AI/ML",
-      "Web Scraping",
-      "Multi-language",
-      "Production",
-    ],
-    githubUrl: "https://github.com/Passetti-cmd/radar-bidding",
-  },
+  // TODO: AWS backend project slot — add the entry here (and in
+  // src/pages/ProjectDetails.tsx) once the project is published.
+  // {
+  //   id: "aws-backend-project",
+  //   title: "AWS Backend Project",
+  //   description: "",
+  //   techStack: [],
+  //   tags: [],
+  //   githubUrl: "",
+  // },
   {
     id: "secure-task-management-api",
     title: "Secure Task Management API",
@@ -57,7 +43,7 @@ const projects: Project[] = [
     id: "intelligence-log-extractor",
     title: "Intelligence Log Extractor",
     description:
-      "Professional data engineering platform that extracts structured information (dates, monetary values, names) from unstructured text files. Features multi-language support, international currency formats, and real-time analytics dashboard.",
+      "Data engineering pipeline with a FastAPI backend that extracts structured information (dates, monetary values, names) from unstructured text files, handling multiple languages and international date and currency formats, with results stored in PostgreSQL.",
     techStack: [
       "Python",
       "FastAPI",
@@ -67,13 +53,17 @@ const projects: Project[] = [
       "Pydantic",
       "Pandas",
     ],
-    tags: [
-      "Data Engineering",
-      "Full-Stack",
-      "Internationalization",
-      "Production",
-    ],
+    tags: ["Data Engineering", "Internationalization", "Production"],
     githubUrl: "https://github.com/Passetti-cmd/Data-Analytics-ETL-Pipelines",
+  },
+  {
+    id: "public-tender-radar",
+    title: "Public Tender Radar",
+    description:
+      "Backend for a procurement platform that helps companies discover and manage public tenders in Brazil: automated Playwright scraping across multiple portals, keyword matching and ML-based adherence scoring, served through a FastAPI REST API on MySQL.",
+    techStack: ["Python", "FastAPI", "SQLAlchemy", "MySQL", "Playwright", "JWT"],
+    tags: ["AI/ML", "Web Scraping", "Multi-language", "Production"],
+    githubUrl: "https://github.com/Passetti-cmd/radar-bidding",
   },
 ];
 
@@ -117,11 +107,6 @@ const Projects = () => {
                 <h3 className="text-xl font-semibold text-slate-100 group-hover:text-cyan-400 transition-colors">
                   {project.title}
                 </h3>
-                {index === 0 && (
-                  <span className="px-2 py-1 text-xs bg-cyan-500/20 text-cyan-400 rounded">
-                    MAIN
-                  </span>
-                )}
               </div>
 
               <p className="text-slate-400 text-sm mb-4 leading-relaxed">

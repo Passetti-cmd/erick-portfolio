@@ -1,52 +1,56 @@
 import { motion } from "framer-motion";
 
-const experiences = [
+type ExperienceItem = {
+  title: string;
+  company: string;
+  period: string;
+  location: string;
+  type: string;
+  summary?: string;
+  responsibilities: string[];
+};
+
+const experiences: ExperienceItem[] = [
   {
-    title: "Junior Software Engineer",
+    title: "Software Engineer",
     company: "Saúde Bliss",
-    period: "Mar 2025 – Present · 11 months",
+    period: "Mar 2025 – Present",
     location: "São Paulo, Brazil · Hybrid",
     type: "Full-time",
+    summary:
+      "Backend and automation engineering for an insurtech platform used by health insurance brokers.",
     responsibilities: [
-      "Develop and maintain backend services and APIs using TypeScript (Node.js) and Python",
-      "Create and maintain process automation bots that interact with third-party platforms via APIs and web automation",
-      "Operate and monitor automation services running on AWS, primarily using EC2 and S3",
-      "Analyze cloud logs and application logs daily to debug failures, rerun tasks, and ensure system stability",
-      "Perform continuous maintenance and refactoring of automation workflows to adapt to changes in external systems",
-      "Work with SQL databases to support backend operations and data consistency",
-      "Support cloud-based deployments and operational workflows",
-      "Assist with AI resource usage and integration to support automation, monitoring, error handling, and data cleaning",
-      "Use Git and GitHub for version control, code reviews, and collaborative development",
-      "Collaborate with cross-functional teams to improve system reliability, performance, and scalability",
-      "Apply clean code principles and production-oriented engineering practices",
+      "Own and maintain a fleet of 5–6 production Playwright robots (TypeScript/Node.js) that automate insurance quoting across major Brazilian health insurers' portals.",
+      "Added observability to the robots (structured logs, traces, CloudWatch metrics) to detect and diagnose failures faster.",
+      "Continuously refactor and harden automations as third-party portals change.",
+      "Created repositories and standardized project templates (Golden Path) so new services start from a consistent structure.",
+      "Operate services on AWS (EC2, S3, CloudWatch) and configure IAM policies for access control.",
+      "Write and run MySQL queries to support backend operations and data consistency.",
+      "Work with senior engineers on technical decisions and design trade-offs.",
     ],
   },
   {
     title: "Data Analyst Intern",
     company: "SESI São Paulo",
-    period: "Jan 2025 – Mar 2025 · 3 months",
+    period: "Jan 2025 – Mar 2025",
     location: "São Paulo, Brazil · On-site",
     type: "Internship",
     responsibilities: [
-      "Designed and maintained analytical dashboards and reports using Power BI, enabling data-driven decision-making across internal teams",
-      "Developed SQL and Python-based data pipelines for extraction, transformation, and analysis, improving data consistency and report reliability",
-      "Implemented process automation to optimize data workflows and reduce manual operational tasks",
-      "Collaborated with cross-functional stakeholders to translate business requirements into structured data models and analytical solutions",
-      "Gained hands-on experience with data modeling, automation, and fundamental concepts for AI-assisted and data retrieval-based systems",
+      "Built SQL and Python ETL pipelines that improved data consistency and reporting reliability.",
+      "Automated recurring data workflows to reduce manual effort.",
+      "Delivered Power BI dashboards and translated business requirements into data models.",
     ],
   },
   {
     title: "IT Support & Infrastructure Analyst",
-    company: "Preçolandia Comercial Ltda",
-    period: "Sep 2023 – Aug 2024 · 1 year",
+    company: "Preçolândia Comercial",
+    period: "Sep 2023 – Aug 2024",
     location: "São Paulo, Brazil · On-site",
     type: "Full-time",
     responsibilities: [
-      "Provided technical support to internal users, including hardware, operating systems, and network-related issues",
-      "Supported ERP system usage and troubleshooting, assisting with system configuration and operational stability",
-      "Assisted with basic process automation and data organization, improving internal workflows and reporting efficiency",
-      "Participated in requirements gathering and documentation, working closely with business users to translate operational needs into technical adjustments",
-      "Developed solid foundations in systems thinking, problem-solving, and IT operations, which later supported backend and data-oriented work",
+      "Supported ERP systems, networks and end-user infrastructure in a retail environment.",
+      "Automated routine tasks and data organization to improve reporting efficiency.",
+      "Gathered requirements from business users and turned them into technical adjustments.",
     ],
   },
 ];
@@ -91,6 +95,11 @@ const Experience = () => {
                   {exp.period}
                 </span>
               </div>
+              {exp.summary && (
+                <p className="text-slate-300 leading-relaxed mt-4">
+                  {exp.summary}
+                </p>
+              )}
               <ul className="space-y-2 mt-6">
                 {exp.responsibilities.map((resp, i) => (
                   <motion.li

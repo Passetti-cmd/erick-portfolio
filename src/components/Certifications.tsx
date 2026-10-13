@@ -20,7 +20,7 @@ const certifications = [
     title: 'Advanced JavaScript and TypeScript Course',
     issuer: 'Udemy',
     date: 'Mar 2025',
-    skills: ['JavaScript', 'TypeScript', 'Node.js', 'SQL', 'React.js', 'REST API'],
+    skills: ['JavaScript', 'TypeScript', 'Node.js', 'SQL', 'REST API'],
   },
   {
     title: 'Data Scientist: The Complete Course',
@@ -32,7 +32,7 @@ const certifications = [
     title: 'Complete Web Development',
     issuer: 'Udemy',
     date: 'Oct 2024',
-    skills: ['JavaScript', 'Bootstrap', 'HTML', 'CSS', 'Web Development', 'React.js', 'Cloud Computing'],
+    skills: ['JavaScript', 'Web Development', 'Cloud Computing'],
   },
 ]
 

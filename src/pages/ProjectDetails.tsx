@@ -12,7 +12,7 @@ interface ProjectData {
     backend: string[];
     scraping?: string[];
     database: string[];
-    frontend?: string[];
+    analytics?: string[];
     devops?: string[];
   };
   security: string[];
@@ -21,13 +21,15 @@ interface ProjectData {
 }
 
 const projectData: Record<string, ProjectData> = {
+  // TODO: AWS backend project slot — add its details here, using the same id
+  // as in src/components/Projects.tsx.
   "public-tender-radar": {
     id: "public-tender-radar",
     title: "Public Tender Radar",
     problem:
       "Companies struggle to discover and manage public tenders (licitações) in Brazil. Manual monitoring across multiple government portals is time-consuming, error-prone, and makes it difficult to identify relevant opportunities that match company profiles.",
     solution:
-      "Built a comprehensive full-stack web application with AI-powered matching system that automatically discovers and scores public tenders. The platform uses machine learning to match tenders with company profiles, provides intelligent adherence scoring (0-100), and offers multi-language support (Portuguese, English, German). Includes automated web scraping from multiple Brazilian tender portals, multi-user company management, and comprehensive notification system.",
+      "Built the backend of a web platform with an AI-powered matching system that automatically discovers and scores public tenders. The platform uses machine learning to match tenders with company profiles, provides intelligent adherence scoring (0-100), and offers multi-language support (Portuguese, English, German). Includes automated web scraping from multiple Brazilian tender portals, multi-user company management, and comprehensive notification system.",
     challenges: [
       "Implementing AI-powered keyword matching across multiple data sources",
       "Building reliable multi-portal web scraper with Playwright",
@@ -56,12 +58,6 @@ const projectData: Record<string, ProjectData> = {
         "SQLAlchemy ORM",
         "Indexed queries for performance",
       ],
-      frontend: [
-        "React with TypeScript",
-        "React Router for navigation",
-        "Tailwind CSS for styling",
-        "Axios for HTTP requests",
-      ],
     },
     security: [
       "JWT-based authentication",
@@ -73,7 +69,7 @@ const projectData: Record<string, ProjectData> = {
       "Multi-tenant data isolation",
     ],
     whyMatters:
-      "Demonstrates full-stack development expertise, AI/ML integration, web scraping capabilities, and internationalization skills. Shows ability to build production-ready systems that solve real-world business problems with modern technologies.",
+      "Demonstrates backend API development, AI/ML integration, web scraping capabilities, and internationalization skills. Shows ability to build production-ready systems that solve real-world business problems with modern technologies.",
     githubUrl: "https://github.com/Passetti-cmd/radar-bidding",
   },
   "secure-task-management-api": {
@@ -141,7 +137,7 @@ const projectData: Record<string, ProjectData> = {
         "Pandas for data processing",
         "Background task processing",
       ],
-      frontend: [
+      analytics: [
         "Streamlit for interactive dashboard",
         "Plotly for visualizations",
         "Real-time metrics and KPIs",
@@ -158,7 +154,7 @@ const projectData: Record<string, ProjectData> = {
       "Environment variable management",
     ],
     whyMatters:
-      "Demonstrates enterprise-level data engineering skills, internationalization capabilities, and production-ready full-stack development. Shows ability to handle complex data extraction requirements suitable for European tech companies.",
+      "Demonstrates enterprise-level data engineering skills, internationalization capabilities, and production-ready backend development. Shows ability to handle complex data extraction requirements suitable for European tech companies.",
     githubUrl: "https://github.com/Passetti-cmd/Data-Analytics-ETL-Pipelines",
   },
 };

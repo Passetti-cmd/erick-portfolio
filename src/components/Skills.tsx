@@ -2,42 +2,49 @@ import { motion } from "framer-motion";
 
 const skillCategories = [
   {
-    title: "Languages",
-    skills: ["Python", "TypeScript", "JavaScript", "SQL"],
-  },
-  {
-    title: "Backend & APIs",
+    title: "Core Stack",
     skills: [
-      "FastAPI",
-      "Express.js",
       "Node.js",
-      "REST APIs",
-      "JWT Authentication",
+      "TypeScript",
+      "Playwright",
+      "Python",
+      "AWS (EC2, S3, CloudWatch, IAM)",
+      "MySQL",
     ],
   },
   {
+    title: "Languages",
+    skills: ["JavaScript", "SQL"],
+  },
+  {
+    title: "Backend & APIs",
+    skills: ["FastAPI", "Express.js", "REST APIs", "JWT Authentication"],
+  },
+  {
     title: "Cloud & Infrastructure",
-    skills: ["AWS (EC2, S3)", "Docker", "Git", "CI/CD", "Cloud Deployments"],
+    skills: ["Docker", "Git", "CI/CD", "Cloud Deployments"],
   },
   {
     title: "Databases",
-    skills: ["MongoDB", "MySQL", "SQL"],
+    skills: ["MongoDB", "SQL"],
   },
   {
-    title: "Automation & Web",
-    skills: ["Playwright", "Puppeteer", "Web Automation", "Process Automation"],
+    title: "Automation",
+    skills: ["Puppeteer", "Web Automation", "Process Automation"],
   },
   {
     title: "Data & Analytics",
     skills: ["Pandas", "NumPy", "Power BI", "Data Pipelines"],
   },
   {
-    title: "AI & Machine Learning",
-    skills: ["Machine Learning", "Deep Learning", "AI Integration"],
-  },
-  {
     title: "Tools & Practices",
-    skills: ["Git/GitHub", "Code Reviews", "Clean Code", "Production Systems"],
+    skills: [
+      "Git/GitHub",
+      "Code Reviews",
+      "Clean Code",
+      "Production Systems",
+      "AI Integration",
+    ],
   },
 ];
 

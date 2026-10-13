@@ -71,12 +71,7 @@ const Contact = () => {
               <MapPin className="w-6 h-6 text-cyan-400" />
               <div>
                 <p className="text-slate-400 text-sm">Location</p>
-                <p className="text-slate-100">
-                  Open to relocation / Remote work
-                </p>
-                <p className="text-slate-400 text-xs mt-1">
-                  EU Work Authorization (Italian Citizenship in progress)
-                </p>
+                <p className="text-slate-100">Based in São Paulo, Brazil</p>
               </div>
             </motion.div>
           </div>
