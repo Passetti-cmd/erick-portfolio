@@ -103,7 +103,7 @@ export const projects: Project[] = [
     title: "Public Tender Radar",
     tagline: "Finds Brazilian public tenders and scores how well each fits a company.",
     description:
-      "Backend for a procurement platform that helps companies discover public tenders in Brazil: Playwright scraping across multiple portals, keyword matching and ML-based adherence scoring, served through a FastAPI REST API on MySQL.",
+      "Backend for a procurement platform that helps companies discover public tenders in Brazil: Playwright scraping across multiple portals, keyword-based adherence scoring, served through a FastAPI REST API on MySQL.",
     kind: "Personal project",
     topics: ["Web scraping", "Matching", "Multi-tenant"],
     stack: ["Python", "FastAPI", "SQLAlchemy", "MySQL", "Playwright", "JWT"],

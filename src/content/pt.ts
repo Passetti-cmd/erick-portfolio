@@ -17,14 +17,13 @@ export const summaryPt =
 
 export const metricsPt: Metric[] = [
   { label: "Robôs em produção sob minha responsabilidade", after: 6, unit: "", display: "5–6" },
-  { label: "Tempo de cotação, por execução", before: 7, after: 3, unit: "min" },
-  { label: "Taxa de erro depois do hardening", before: 35, after: 8, unit: "%", approx: true },
+  { label: "Tempo médio de cotação", before: 7, after: 3, unit: "min", approx: true },
+  { label: "Taxa de erro depois das minhas correções", before: 35, after: 8, unit: "%", approx: true },
 ];
 
 export const aboutPt = [
   "Construo e opero sistemas backend com muita automação, em produção, usando Node.js, TypeScript e Python.",
-  "Hoje sou responsável por uma frota de 5–6 robôs Playwright que se integram aos portais das principais operadoras de saúde do Brasil para automatizar cotações para corretores. Mantenho esses robôs confiáveis com logs estruturados, traces e monitoramento na AWS (EC2, S3, CloudWatch), e cuido dos repositórios, dos templates de projeto (o nosso “Golden Path”) e dos fluxos de deploy em volta deles. Escrevo MySQL todo dia e configuro as políticas de IAM dos serviços que opero.",
-  "O trabalho de que mais gosto é aquele em que dá para ver o sistema rodando e melhorá-lo: desenhar APIs, deixar integrações resistentes a sistemas de terceiros que mudam sem aviso e adicionar observabilidade para que falhas sejam encontradas e corrigidas rápido.",
+  "Gosto de problemas em que o sistema do qual dependo muda o tempo todo: portais de terceiros, redes instáveis, seletores que mudam. Minha abordagem é primeiro deixar as falhas visíveis (logs, traces, métricas) e depois torná-las rotina (retries, idempotência, runbooks claros).",
   "Morei e estudei em Orlando, FL (2017–2019), então trabalho com tranquilidade em inglês e em times no estilo americano. Estou terminando o tecnólogo em Análise e Desenvolvimento de Sistemas (dezembro de 2026).",
 ];
 
@@ -59,7 +58,7 @@ export const experiencePt: ExperienceItem[] = [
       "Criei repositórios e templates de projeto padronizados (Golden Path) para que novos serviços comecem com uma estrutura consistente.",
       "Opero serviços na AWS (EC2, S3, CloudWatch) e configuro políticas de IAM para controle de acesso.",
       "Escrevo e executo queries MySQL para apoiar as operações de backend e a consistência dos dados.",
-      "Trabalho com engenheiros seniores em decisões técnicas e trade-offs de design.",
+      "Fiz o onboarding de três engenheiros seniores nos robôs de cotação e sou consultado nas decisões de arquitetura dos robôs.",
     ],
   },
   {
@@ -216,7 +215,7 @@ const projectTextPt: Record<string, ProjectText> = {
     title: "Public Tender Radar",
     tagline: "Encontra licitações públicas e calcula o quanto cada uma combina com a empresa.",
     description:
-      "Backend de uma plataforma de licitações que ajuda empresas a descobrir editais públicos no Brasil: scraping com Playwright em vários portais, matching por palavras-chave e score de aderência com ML, servido por uma API REST em FastAPI sobre MySQL.",
+      "Backend de uma plataforma de licitações que ajuda empresas a descobrir editais públicos no Brasil: scraping com Playwright em vários portais, score de aderência baseado em palavras-chave, servido por uma API REST em FastAPI sobre MySQL.",
     kind: "Projeto pessoal",
     topics: ["Web scraping", "Matching", "Multi-tenant"],
     problem:

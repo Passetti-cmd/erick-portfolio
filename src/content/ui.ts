@@ -47,7 +47,7 @@ export const ui = {
       workIntro: "Three roles, from IT support to running backend automation in production.",
       projectsIntro:
         "Things I built on my own time to go deeper on APIs, data and scraping. Each one links to a write-up and the code.",
-      skillsIntro: "What I use day to day, grouped by where it sits in the stack.",
+      skillsIntro: "Tools I’ve used in production and in personal projects.",
       certifications: "Certifications",
     },
     projects: {
@@ -130,7 +130,7 @@ export const ui = {
       workIntro: "Três cargos, do suporte de TI até rodar automação backend em produção.",
       projectsIntro:
         "Coisas que construí no meu tempo livre para me aprofundar em APIs, dados e scraping. Cada um tem um texto explicando e o código.",
-      skillsIntro: "O que uso no dia a dia, agrupado pela camada da stack.",
+      skillsIntro: "Ferramentas que usei em produção e em projetos pessoais.",
       certifications: "Certificações",
     },
     projects: {

@@ -35,14 +35,13 @@ export type Metric = {
 
 export const metrics: Metric[] = [
   { label: "Production robots I own and operate", after: 6, unit: "", display: "5–6" },
-  { label: "Quote runtime, per run", before: 7, after: 3, unit: "min" },
+  { label: "Average quote runtime", before: 7, after: 3, unit: "min", approx: true },
   { label: "Error rate after hardening", before: 35, after: 8, unit: "%", approx: true },
 ];
 
 export const about = [
   "I build and operate automation-heavy backend systems in production with Node.js, TypeScript and Python.",
-  "Today I own a fleet of 5–6 Playwright robots that integrate with the portals of major Brazilian health insurers to automate quoting for insurance brokers. I keep them reliable with structured logging, traces and monitoring on AWS (EC2, S3, CloudWatch), and I maintain the repositories, project templates (our “Golden Path”) and deployment workflows around them. I write MySQL daily and configure the IAM policies for the services I run.",
-  "The work I enjoy most is the kind where you can watch a system run and make it better: designing APIs, hardening integrations against third-party systems that change without notice, and adding observability so failures are found and fixed fast.",
+  "I like problems where the system I depend on keeps changing under me: third-party portals, flaky networks, moving selectors. My approach is to make failures visible first (logs, traces, metrics), then make them boring (retries, idempotency, clear runbooks).",
   "I lived and studied in Orlando, FL (2017–2019), so I work comfortably in English and in US-style teams. I’m finishing an associate’s degree in Systems Analysis and Development (December 2026).",
 ];
 
@@ -106,7 +105,7 @@ export const experience: ExperienceItem[] = [
       "Created repositories and standardized project templates (Golden Path) so new services start from a consistent structure.",
       "Operate services on AWS (EC2, S3, CloudWatch) and configure IAM policies for access control.",
       "Write and run MySQL queries to support backend operations and data consistency.",
-      "Work with senior engineers on technical decisions and design trade-offs.",
+      "Onboarded three senior engineers to the quoting robots and advise on robot architecture decisions.",
     ],
   },
   {
