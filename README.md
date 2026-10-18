@@ -1,121 +1,123 @@
-# Erick Passetti - Portfolio
+# Erick Passetti, Backend Engineer
 
-Professional portfolio website showcasing backend engineering, automation, and cloud infrastructure expertise. Built with React, TypeScript, and modern web technologies.
+[![Portfolio preview](public/og-image.png)](https://passetti-cmd.github.io/erick-portfolio/)
 
-**Live Site**: [https://passetti-cmd.github.io/erick-portfolio/](https://passetti-cmd.github.io/erick-portfolio/)
+My personal portfolio: **[passetti-cmd.github.io/erick-portfolio](https://passetti-cmd.github.io/erick-portfolio/)**
 
-## 🚀 Features
+I build and run backend automation in production: a fleet of Playwright robots (Node.js, TypeScript) that quote health insurance across Brazilian insurer portals, monitored on AWS. This site shows that work, my side projects and how to reach me, in English and Portuguese.
 
-- Modern, clean design with technical focus
-- Smooth animations and interactions using Framer Motion
-- Fully responsive design
-- Optimized for performance
-- Dark theme with glassmorphism effects
-- Deployed on GitHub Pages
+## What's in it
 
-## 🛠️ Tech Stack
+- **Animated system diagram in the hero.** A simplified schematic of the quoting fleet: requests flow in, robots work their lanes, one hits a changed selector and retries, results go to S3 and logs to CloudWatch.
+- **Before → after metrics.** Runtime and error-rate figures count down while a bar shrinks to the new value.
+- **English / Portuguese.** A toggle in the nav switches all content and remembers the choice.
+- **Light and dark themes.** Follows the system setting, with a manual toggle that persists.
+- **Prerendered pages.** Every route is rendered to static HTML at build time, so search engines and link previews (LinkedIn, WhatsApp, Slack) see real content and per-page titles.
+- **Accessible motion.** Animations respect `prefers-reduced-motion`, focus states are visible and the layout works down to phone width.
 
-- **Frontend**: React 18, TypeScript, Vite
-- **Styling**: Tailwind CSS
-- **Animations**: Framer Motion
-- **Routing**: React Router v6
-- **Icons**: Lucide React
-- **Deployment**: GitHub Pages with GitHub Actions
+## Stack
 
-## 📦 Getting Started
+| | |
+| --- | --- |
+| UI | React 18, TypeScript, Tailwind CSS |
+| Motion | [Motion](https://motion.dev) (`motion/react`), SVG SMIL for the schematic |
+| Routing | React Router 6 |
+| Build | Vite 5, plus a small SSR prerender step |
+| Type | Instrument Sans (variable width axis), JetBrains Mono |
+| Hosting | GitHub Pages, deployed by GitHub Actions on every push to `main` |
 
-### Prerequisites
+## Running it locally
 
-- Node.js 18+ and npm
-
-### Installation
+Needs Node.js 18 or newer.
 
 ```bash
-# Install dependencies
 npm install
+```
 
-# Start development server
+```bash
 npm run dev
+```
 
-# Build for production
+The dev server runs at `http://localhost:5173`. To check the real production output, prerendering included:
+
+```bash
 npm run build
+```
 
-# Preview production build
+```bash
 npm run preview
 ```
 
-## 🏗️ Project Structure
+The preview is served at `http://localhost:4173/erick-portfolio/`.
+
+## How the build works
+
+`npm run build` runs four steps:
+
+1. `tsc` typechecks the project.
+2. `vite build` bundles the client into `dist/`.
+3. `vite build --ssr src/entry-server.tsx` builds a server renderer into `dist-server/`.
+4. `node scripts/prerender.mjs` renders each route to HTML, writes per-page `<title>`, description, Open Graph and canonical tags, generates `404.html` and `sitemap.xml`, then deletes `dist-server/`.
+
+In the browser, `src/main.tsx` hydrates the prerendered HTML when it exists and falls back to a normal client render in dev.
+
+## Project structure
 
 ```
 src/
-├── components/     # Reusable React components
-│   ├── Hero.tsx
-│   ├── Projects.tsx
-│   ├── About.tsx
-│   ├── Skills.tsx
-│   ├── Experience.tsx
-│   ├── Education.tsx
-│   ├── Certifications.tsx
-│   ├── Contact.tsx
-│   ├── Navigation.tsx
-│   └── Footer.tsx
-├── pages/         # Page components
-│   ├── Home.tsx
-│   └── ProjectDetails.tsx
-├── App.tsx        # Main app component
-├── main.tsx       # Entry point
-└── index.css      # Global styles
+├── content/
+│   ├── profile.ts      English content: profile, metrics, jobs, skills, education
+│   ├── projects.ts     English project list and case-study text
+│   ├── pt.ts           Portuguese versions of the two files above
+│   ├── ui.ts           Interface strings in both languages
+│   └── meta.ts         Page titles, descriptions and the routes to prerender
+├── components/
+│   ├── Hero.tsx            Name, intro, calls to action
+│   ├── FleetSchematic.tsx  Animated architecture diagram and log ticker
+│   ├── Metrics.tsx         Before → after figures
+│   ├── Experience.tsx      Timeline that draws as you scroll
+│   ├── Projects.tsx        Project list, with a slot for a featured project
+│   ├── Skills.tsx, About.tsx, Education.tsx, Contact.tsx, Footer.tsx
+│   ├── Navigation.tsx      Nav with active-section indicator and scroll progress
+│   ├── LangToggle.tsx, ThemeToggle.tsx
+│   └── ui.tsx              Shared section layout and display heading
+├── pages/              Home, ProjectDetails, NotFound
+├── i18n.tsx            Language provider and the useContent() hook
+├── entry-server.tsx    Server renderer used by the prerender script
+└── main.tsx            Client entry
+scripts/prerender.mjs   Static HTML generation
+public/                 Favicon, Open Graph image, CV files
 ```
 
-## 🚢 Deployment
+## Editing content
 
-This project is configured for automatic deployment to GitHub Pages using GitHub Actions.
+All text lives in `src/content/`. Components don't hold copy.
 
-### Deployment Process
+- **A job, skill or certification:** edit `profile.ts` and the matching list in `pt.ts`.
+- **A project:** add it to `projects.ts` and its Portuguese text to `projectTextPt` in `pt.ts`, using the same `id`. Set `featured: true` to show it in the large slot at the top of the section. Its detail page and prerendered HTML are created automatically.
+- **Interface labels:** edit `ui.ts`. Both languages share the same keys, so TypeScript flags a missing translation.
 
-1. Push to `main` branch
-2. GitHub Actions automatically builds and deploys
-3. Site is available at `https://passetti-cmd.github.io/erick-portfolio/`
+## CV download
 
-### Manual Deployment
+The "Download CV" buttons only appear when the files exist:
 
-```bash
-npm run build
-# Deploy the dist/ folder to your hosting service
+```
+public/cv/Erick-Passetti-CV-EN.pdf
+public/cv/Erick-Passetti-CV-PT.pdf   (optional; the Portuguese site falls back to the English file)
 ```
 
-## 📝 Customization
+Vite checks for them at startup, so restart `npm run dev` after adding or removing a file.
 
-To customize the portfolio, update the following files:
+## Deployment
 
-- `src/components/Hero.tsx` - Landing section
-- `src/components/Projects.tsx` - Project cards
-- `src/pages/ProjectDetails.tsx` - Project detail pages
-- `src/components/Experience.tsx` - Work experience
-- `src/components/Skills.tsx` - Skills section
-- `src/components/Contact.tsx` - Contact information
+`.github/workflows/deploy.yml` builds and publishes `dist/` to GitHub Pages on every push to `main`. The site is served from `/erick-portfolio/`. If the repository is renamed, update `base` in `vite.config.ts` and `SITE_URL` in `src/content/profile.ts`.
 
-## 🔧 Configuration
+## Contact
 
-### GitHub Pages Base Path
-
-If you change the repository name, update:
-
-- `vite.config.ts` - `base` path
-- `src/App.tsx` - `basename` in Router
-
-## 📄 License
-
-MIT License
-
-## 👨‍💻 Author
-
-**Erick Passetti**
-
-- Portfolio: [https://passetti-cmd.github.io/erick-portfolio/](https://passetti-cmd.github.io/erick-portfolio/)
+- Email: erickpassetti23@gmail.com
+- LinkedIn: [linkedin.com/in/erick-passetti](https://www.linkedin.com/in/erick-passetti)
 - GitHub: [@Passetti-cmd](https://github.com/Passetti-cmd)
-- LinkedIn: [erick-passetti](https://www.linkedin.com/in/erick-passetti)
 
----
+## License
 
-Built with ❤️ using React, TypeScript, and Tailwind CSS
+MIT
