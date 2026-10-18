@@ -1,171 +1,111 @@
-import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
-import { ExternalLink, Github } from "lucide-react";
+import { Link } from "react-router-dom";
+import { ArrowUpRight, Github } from "lucide-react";
+import { Section } from "./ui";
+import type { Project } from "../content/projects";
+import { useContent } from "../i18n";
 
-interface Project {
-  id: string;
-  title: string;
-  description: string;
-  techStack: string[];
-  tags: string[];
-  githubUrl: string;
-}
-
-const projects: Project[] = [
-  // TODO: AWS backend project slot — add the entry here (and in
-  // src/pages/ProjectDetails.tsx) once the project is published.
-  // {
-  //   id: "aws-backend-project",
-  //   title: "AWS Backend Project",
-  //   description: "",
-  //   techStack: [],
-  //   tags: [],
-  //   githubUrl: "",
-  // },
-  {
-    id: "secure-task-management-api",
-    title: "Secure Task Management API",
-    description:
-      "Production-ready RESTful API with JWT authentication and strict data isolation. Demonstrates secure authentication, input validation, error handling, and multi-tenant data separation at the database level.",
-    techStack: [
-      "Node.js",
-      "TypeScript",
-      "Express",
-      "MongoDB",
-      "Mongoose",
-      "JWT",
-      "Docker",
-    ],
-    tags: ["Backend Development", "REST API", "Security", "Production"],
-    githubUrl: "https://github.com/Passetti-cmd/Management-API",
-  },
-  {
-    id: "intelligence-log-extractor",
-    title: "Intelligence Log Extractor",
-    description:
-      "Data engineering pipeline with a FastAPI backend that extracts structured information (dates, monetary values, names) from unstructured text files, handling multiple languages and international date and currency formats, with results stored in PostgreSQL.",
-    techStack: [
-      "Python",
-      "FastAPI",
-      "Streamlit",
-      "PostgreSQL",
-      "Docker",
-      "Pydantic",
-      "Pandas",
-    ],
-    tags: ["Data Engineering", "Internationalization", "Production"],
-    githubUrl: "https://github.com/Passetti-cmd/Data-Analytics-ETL-Pipelines",
-  },
-  {
-    id: "public-tender-radar",
-    title: "Public Tender Radar",
-    description:
-      "Backend for a procurement platform that helps companies discover and manage public tenders in Brazil: automated Playwright scraping across multiple portals, keyword matching and ML-based adherence scoring, served through a FastAPI REST API on MySQL.",
-    techStack: ["Python", "FastAPI", "SQLAlchemy", "MySQL", "Playwright", "JWT"],
-    tags: ["AI/ML", "Web Scraping", "Multi-language", "Production"],
-    githubUrl: "https://github.com/Passetti-cmd/radar-bidding",
-  },
-];
-
-const Projects = () => {
-  const navigate = useNavigate();
-
+const Stack = ({ items }: { items: string[] }) => {
+  const { t } = useContent();
   return (
-    <section className="py-24 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-4xl md:text-5xl font-bold mb-4 text-center"
-        >
-          <span className="text-gradient">Projects</span>
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
-          className="text-slate-400 text-center mb-16 max-w-2xl mx-auto"
-        >
-          Real-world backend systems, automation pipelines, and secure APIs
-        </motion.p>
+  <ul className="flex flex-wrap gap-1.5" aria-label={t.projects.stack}>
+    {items.map((tech) => (
+      <li key={tech} className="chip text-[0.82rem]">
+        {tech}
+      </li>
+    ))}
+  </ul>
+  );
+};
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
-            <motion.div
-              key={project.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              whileHover={{ y: -8 }}
-              className="glass rounded-xl p-6 hover:border-cyan-500/50 transition-all duration-300 cursor-pointer group"
-              onClick={() => navigate(`/project/${project.id}`)}
+const RepoLink = ({ project }: { project: Project }) => {
+  const { t } = useContent();
+  return (
+  <a
+    href={project.githubUrl}
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label={t.projects.onGithub(project.title)}
+    className="relative z-10 grid h-10 w-10 shrink-0 place-items-center rounded-full border border-rule text-ink2 transition-colors hover:border-ink hover:text-ink"
+  >
+    <Github className="h-[18px] w-[18px]" />
+  </a>
+  );
+};
+
+/** Large slot for the lead project (browser-fleet, once it ships). */
+const Featured = ({ project }: { project: Project }) => (
+  <article className="group relative mb-6 overflow-hidden rounded-3xl border border-rule bg-surface p-7 transition-colors hover:border-ink/40 md:p-10">
+    <p className="text-ink3">{project.kind}</p>
+    <h3 className="display mt-2 text-[2.75rem] md:text-[3.5rem]">
+      <Link to={`/project/${project.id}`} className="after:absolute after:inset-0">
+        {project.title}
+      </Link>
+    </h3>
+    <p className="mt-4 max-w-[52ch] text-[1.15rem] text-ink">{project.description}</p>
+    <div className="mt-8 flex flex-wrap items-end justify-between gap-6">
+      <Stack items={project.stack} />
+      <div className="flex items-center gap-2">
+        <RepoLink project={project} />
+        <span className="grid h-10 w-10 place-items-center rounded-full bg-ink text-bg transition-transform duration-300 group-hover:rotate-45">
+          <ArrowUpRight className="h-5 w-5" />
+        </span>
+      </div>
+    </div>
+  </article>
+);
+
+const Row = ({ project }: { project: Project }) => (
+  <li className="group relative border-t border-rule last:border-b">
+    <div className="relative -mx-4 grid gap-4 rounded-2xl px-4 py-8 transition-colors duration-300 group-hover:bg-surface sm:-mx-6 sm:px-6 md:grid-cols-[1fr_auto] md:gap-8">
+      <div>
+        <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+          <h3 className="text-[1.75rem] font-semibold leading-tight tracking-[-0.015em]">
+            <Link
+              to={`/project/${project.id}`}
+              className="after:absolute after:inset-0 after:rounded-2xl"
             >
-              <div className="flex items-start justify-between mb-4">
-                <h3 className="text-xl font-semibold text-slate-100 group-hover:text-cyan-400 transition-colors">
-                  {project.title}
-                </h3>
-              </div>
-
-              <p className="text-slate-400 text-sm mb-4 leading-relaxed">
-                {project.description}
-              </p>
-
-              <div className="flex flex-wrap gap-2 mb-4">
-                {project.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="px-2 py-1 text-xs bg-slate-800/50 text-slate-300 rounded"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-
-              <div className="flex flex-wrap gap-2 mb-6">
-                {project.techStack.map((tech) => (
-                  <span
-                    key={tech}
-                    className="px-2 py-1 text-xs font-mono text-cyan-400/80 bg-cyan-500/10 rounded"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-
-              <div className="flex gap-3">
-                <motion.a
-                  href={project.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={(e) => e.stopPropagation()}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="flex items-center gap-2 text-sm text-slate-300 hover:text-cyan-400 transition-colors"
-                >
-                  <Github className="w-4 h-4" />
-                  Repository
-                </motion.a>
-                <motion.button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    navigate(`/project/${project.id}`);
-                  }}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="flex items-center gap-2 text-sm text-slate-300 hover:text-cyan-400 transition-colors"
-                >
-                  <ExternalLink className="w-4 h-4" />
-                  Details
-                </motion.button>
-              </div>
-            </motion.div>
-          ))}
+              {project.title}
+            </Link>
+          </h3>
+          <span className="text-[0.95rem] text-ink3">{project.kind}</span>
+        </div>
+        <p className="mt-2 max-w-[56ch] text-[1.1rem] text-ink">{project.tagline}</p>
+        <p className="mt-2 max-w-[66ch] text-ink2">{project.description}</p>
+        <div className="mt-5">
+          <Stack items={project.stack} />
         </div>
       </div>
-    </section>
+      <div className="flex items-start gap-2 md:flex-col md:items-end md:justify-between">
+        <span
+          aria-hidden
+          className="grid h-10 w-10 place-items-center rounded-full border border-rule text-ink transition-all duration-300 group-hover:border-ink group-hover:bg-ink group-hover:text-bg"
+        >
+          <ArrowUpRight className="h-5 w-5 transition-transform duration-300 group-hover:rotate-45" />
+        </span>
+        <RepoLink project={project} />
+      </div>
+    </div>
+  </li>
+);
+
+const Projects = () => {
+  const { projects, t } = useContent();
+  const featured = projects.find((p) => p.featured);
+  const rest = projects.filter((p) => p !== featured);
+
+  return (
+    <Section
+      id="projects"
+      title={t.nav.projects}
+      intro={t.sections.projectsIntro}
+    >
+      {featured && <Featured project={featured} />}
+      <ul>
+        {rest.map((p) => (
+          <Row key={p.id} project={p} />
+        ))}
+      </ul>
+    </Section>
   );
 };
 

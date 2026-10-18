@@ -1,189 +1,173 @@
-import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { AnimatePresence, motion, useScroll, useSpring } from "motion/react";
+import { Menu, X } from "lucide-react";
+import ThemeToggle from "./ThemeToggle";
+import LangToggle from "./LangToggle";
+import { useContent } from "../i18n";
 
-type NavItem = {
-  name: string;
-  href: string;
-  id: string;
-};
+const sectionIds = ["work", "projects", "skills", "about", "education", "contact"] as const;
 
-const navItems: NavItem[] = [
-  { name: "Home", href: "/", id: "home" },
-  { name: "Projects", href: "#projects", id: "projects" },
-  { name: "About", href: "#about", id: "about" },
-  { name: "Skills", href: "#skills", id: "skills" },
-  { name: "Experience", href: "#experience", id: "experience" },
-  { name: "Education", href: "#education", id: "education" },
-  { name: "Certifications", href: "#certifications", id: "certifications" },
-  { name: "Contact", href: "#contact", id: "contact" },
-];
-
-const Navigation = () => {
-  const [scrolled, setScrolled] = useState(false);
-  const navigate = useNavigate();
+/** Tracks which home section sits under the nav bar. */
+const useActiveSection = (enabled: boolean) => {
+  const [active, setActive] = useState<string | null>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    if (!enabled) {
+      setActive(null);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) setActive(entry.target.id);
+        }
+      },
+      { rootMargin: "-45% 0px -50% 0px" }
+    );
+    ["home", ...sectionIds].forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  }, [enabled]);
+
+  return active;
+};
+
+const Navigation = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { t, profile } = useContent();
+  const onHome = location.pathname === "/";
+  const active = useActiveSection(onHome);
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  const { scrollYProgress } = useScroll();
+  const progress = useSpring(scrollYProgress, { stiffness: 200, damping: 30 });
+
+  const navItems = sectionIds.map((id) => ({ id, name: t.nav[id] }));
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const handleClick = (
-    e: React.MouseEvent<HTMLAnchorElement>,
-    href: string
-  ) => {
-    if (href === "/") {
-      e.preventDefault();
-      navigate("/");
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    } else if (href.startsWith("#")) {
-      e.preventDefault();
-      const element = document.querySelector(href);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
+  useEffect(() => setOpen(false), [location.pathname]);
+
+  const goTo = (e: React.MouseEvent, id: string) => {
+    e.preventDefault();
+    setOpen(false);
+    if (onHome) {
+      document.getElementById(id)?.scrollIntoView({ block: "start" });
+      history.replaceState(null, "", `#${id}`);
+    } else {
+      navigate({ pathname: "/", hash: `#${id}` });
     }
   };
 
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "glass shadow-lg" : "bg-transparent"
+    <header
+      className={`fixed inset-x-0 top-0 z-50 transition-[background-color,border-color] duration-300 ${
+        scrolled || open
+          ? "border-b border-rule bg-bg/80 backdrop-blur-md"
+          : "border-b border-transparent"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          <Link to="/" className="text-xl font-bold text-gradient">
-            Erick Passetti
-          </Link>
-          <div className="hidden md:flex space-x-8">
-            {navItems.map((item) => {
-              if (item.href === "/") {
-                return (
-                  <Link
-                    key={item.id}
-                    to="/"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      navigate("/");
-                      window.scrollTo({ top: 0, behavior: "smooth" });
-                    }}
-                    className="text-slate-300 hover:text-cyan-400 transition-colors duration-200 text-sm font-medium"
-                  >
-                    {item.name}
-                  </Link>
-                );
-              }
-              return (
+      <nav className="page flex h-16 items-center justify-between" aria-label="Main">
+        <Link
+          to="/"
+          onClick={() => window.scrollTo({ top: 0 })}
+          className="display text-[1.6rem] leading-none"
+        >
+          {profile.name}
+        </Link>
+
+        <div className="hidden items-center gap-1 lg:flex">
+          <ul className="flex items-center">
+            {navItems.map((item) => (
+              <li key={item.id} className="relative">
                 <a
-                  key={item.id}
-                  href={item.href}
-                  onClick={(e) => handleClick(e, item.href)}
-                  className="text-slate-300 hover:text-cyan-400 transition-colors duration-200 text-sm font-medium"
+                  href={`#${item.id}`}
+                  onClick={(e) => goTo(e, item.id)}
+                  aria-current={active === item.id ? "true" : undefined}
+                  className={`relative z-10 block rounded-full px-3.5 py-1.5 text-[0.95rem] transition-colors ${
+                    active === item.id ? "text-bg" : "text-ink2 hover:text-ink"
+                  }`}
                 >
                   {item.name}
                 </a>
-              );
-            })}
-          </div>
-          <div className="md:hidden">
-            <MobileMenu items={navItems} />
-          </div>
+                {active === item.id && (
+                  <motion.span
+                    layoutId="nav-active"
+                    className="absolute inset-0 rounded-full bg-ink"
+                    transition={{ type: "spring", stiffness: 420, damping: 34 }}
+                  />
+                )}
+              </li>
+            ))}
+          </ul>
+          <span className="mx-2 h-5 w-px bg-rule" aria-hidden />
+          <LangToggle id="desktop" />
+          <ThemeToggle />
         </div>
-      </div>
-    </motion.nav>
-  );
-};
 
-const MobileMenu = ({ items }: { items: NavItem[] }) => {
-  const [open, setOpen] = useState(false);
-  const navigate = useNavigate();
+        <div className="flex items-center gap-1 lg:hidden">
+          <LangToggle id="mobile" />
+          <ThemeToggle />
+          <button
+            onClick={() => setOpen((v) => !v)}
+            className="grid h-10 w-10 place-items-center rounded-full text-ink"
+            aria-label={open ? t.nav.closeMenu : t.nav.openMenu}
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+          >
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
+      </nav>
 
-  return (
-    <>
-      <button
-        onClick={() => setOpen(!open)}
-        className="text-slate-300 hover:text-cyan-400 transition-colors"
-        aria-label="Toggle menu"
-      >
-        <svg
-          className="w-6 h-6"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          {open ? (
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M6 18L18 6M6 6l12 12"
-            />
-          ) : (
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4 6h16M4 12h16M4 18h16"
-            />
-          )}
-        </svg>
-      </button>
+      <motion.div
+        aria-hidden
+        className="absolute inset-x-0 bottom-[-1px] h-px origin-left bg-signal"
+        style={{ scaleX: progress }}
+      />
+
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="absolute top-16 left-0 right-0 glass border-t border-slate-800"
+            id="mobile-menu"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            className="overflow-hidden lg:hidden"
           >
-            <div className="px-4 py-4 space-y-3">
-              {items.map((item: NavItem) => {
-                if (item.href === "/") {
-                  return (
-                    <Link
-                      key={item.id}
-                      to="/"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        navigate("/");
-                        window.scrollTo({ top: 0, behavior: "smooth" });
-                        setOpen(false);
-                      }}
-                      className="block text-slate-300 hover:text-cyan-400 transition-colors"
-                    >
-                      {item.name}
-                    </Link>
-                  );
-                }
-                return (
+            <ul className="page flex flex-col pb-6 pt-2">
+              {navItems.map((item, i) => (
+                <motion.li
+                  key={item.id}
+                  initial={{ opacity: 0, x: -8 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.03 * i }}
+                >
                   <a
-                    key={item.id}
-                    href={item.href}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      const element = document.querySelector(item.href);
-                      if (element) {
-                        element.scrollIntoView({ behavior: "smooth" });
-                        setOpen(false);
-                      }
-                    }}
-                    className="block text-slate-300 hover:text-cyan-400 transition-colors"
+                    href={`#${item.id}`}
+                    onClick={(e) => goTo(e, item.id)}
+                    className="display block py-2 text-[2rem]"
                   >
                     {item.name}
                   </a>
-                );
-              })}
-            </div>
+                </motion.li>
+              ))}
+            </ul>
           </motion.div>
         )}
       </AnimatePresence>
-    </>
+    </header>
   );
 };
 

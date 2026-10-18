@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- An "E" drawn as three robot lanes of different lengths, plus a status dot. -->
+  <rect width="32" height="32" rx="8" fill="#0F1729"/>
+  <rect x="8" y="8" width="3" height="16" rx="1.5" fill="#EEF1F4"/>
+  <rect x="8" y="8" width="16" height="3" rx="1.5" fill="#EEF1F4"/>
+  <rect x="8" y="14.5" width="11" height="3" rx="1.5" fill="#8098FF"/>
+  <rect x="8" y="21" width="14" height="3" rx="1.5" fill="#EEF1F4"/>
+  <circle cx="24" cy="16" r="2" fill="#39C98A"/>
+</svg>

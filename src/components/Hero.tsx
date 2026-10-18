@@ -1,139 +1,148 @@
-import { motion } from "framer-motion";
-import { ArrowDown, Github, Linkedin } from "lucide-react";
+import { useRef } from "react";
+import { motion } from "motion/react";
+import { Download, Github, Linkedin } from "lucide-react";
+import FleetSchematic from "./FleetSchematic";
+import Metrics from "./Metrics";
+import { useContent } from "../i18n";
+
+const ease = [0.22, 1, 0.36, 1] as const;
+
+// The one orchestrated moment on the page: the name arrives wide and
+// compresses into place, then the copy and the schematic follow.
+const NameLine = ({ text, delay }: { text: string; delay: number }) => (
+  <span className="block overflow-hidden pb-[0.06em]">
+    <motion.span
+      className="block"
+      initial={{ y: "105%", "--wdth": 100 } as never}
+      animate={{ y: "0%", "--wdth": 75 } as never}
+      transition={{
+        y: { duration: 0.9, delay, ease },
+        "--wdth": { duration: 1.4, delay: delay + 0.15, ease },
+      }}
+      style={{ fontVariationSettings: '"wdth" var(--wdth)' }}
+    >
+      {text}
+    </motion.span>
+  </span>
+);
+
+const fadeUp = (delay: number) => ({
+  initial: { opacity: 0, y: 16 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.7, delay, ease },
+});
+
+const scrollToId = (e: React.MouseEvent, id: string) => {
+  e.preventDefault();
+  document.getElementById(id)?.scrollIntoView({ block: "start" });
+};
 
 const Hero = () => {
-  const stack = [
-    "Node.js",
-    "TypeScript",
-    "Python",
-    "Playwright",
-    "REST APIs",
-    "AWS",
-    "MySQL",
-    "Git/GitHub",
-  ];
+  const { t, profile, cvUrl } = useContent();
+  const ref = useRef<HTMLElement>(null);
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
+  // A soft light follows the pointer across the blueprint grid.
+  const onPointerMove = (e: React.PointerEvent) => {
+    if (e.pointerType !== "mouse" || !ref.current) return;
+    const r = ref.current.getBoundingClientRect();
+    ref.current.style.setProperty("--mx", `${e.clientX - r.left}px`);
+    ref.current.style.setProperty("--my", `${e.clientY - r.top}px`);
   };
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 },
-  };
+  const [first, last] = profile.name.split(" ");
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-      {/* Animated background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-slate-900 to-slate-950" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(14,165,233,0.1),transparent_50%)]" />
+    <section
+      id="home"
+      ref={ref}
+      onPointerMove={onPointerMove}
+      aria-labelledby="hero-title"
+      className="relative overflow-hidden pt-28 md:pt-32"
+    >
+      <div aria-hidden className="blueprint pointer-events-none absolute inset-0" />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 [@media(hover:hover)]:opacity-100"
+        style={{
+          background:
+            "radial-gradient(420px circle at var(--mx, 70%) var(--my, 30%), rgb(var(--signal) / 0.09), transparent 70%)",
+        }}
+      />
 
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-        className="max-w-5xl mx-auto text-center relative z-10"
-      >
-        <motion.h1
-          variants={itemVariants}
-          className="text-5xl md:text-7xl font-bold mb-4"
-        >
-          <span className="text-gradient">Erick Passetti</span>
-        </motion.h1>
-
-        <motion.h2
-          variants={itemVariants}
-          className="text-xl md:text-2xl text-slate-300 mb-8 font-medium"
-        >
-          Software Engineer — Backend & Automation
-        </motion.h2>
-
-        <motion.p
-          variants={itemVariants}
-          className="text-base md:text-lg text-slate-400 mb-12 max-w-3xl mx-auto leading-relaxed"
-        >
-          Backend engineer who builds and operates automation-heavy systems in
-          production using Node.js, TypeScript and Python.
-        </motion.p>
-
-        <motion.div
-          variants={itemVariants}
-          className="flex flex-wrap justify-center gap-3 mb-12"
-        >
-          {stack.map((tech, index) => (
-            <motion.span
-              key={tech}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.5 + index * 0.05 }}
-              className="px-4 py-2 glass rounded-full text-sm text-slate-300 hover:text-cyan-400 transition-colors"
+      <div className="page relative">
+        <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-10">
+          <div className="lg:col-span-6">
+            <h1
+              id="hero-title"
+              className="display text-[clamp(4.5rem,17vw,10.5rem)] leading-[0.86] tracking-[-0.03em]"
             >
-              {tech}
-            </motion.span>
-          ))}
-        </motion.div>
+              <NameLine text={first} delay={0.05} />
+              <NameLine text={last} delay={0.18} />
+              <span className="sr-only">, {profile.role}</span>
+            </h1>
 
-        <motion.div
-          variants={itemVariants}
-          className="flex flex-wrap justify-center gap-4 mb-16"
-        >
-          <motion.a
-            href="#projects"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={(e) => {
-              e.preventDefault();
-              document
-                .querySelector("#projects")
-                ?.scrollIntoView({ behavior: "smooth" });
-            }}
-            className="px-6 py-3 bg-cyan-500 hover:bg-cyan-600 text-white rounded-lg font-medium transition-colors flex items-center gap-2"
-          >
-            View Projects
-          </motion.a>
-          <motion.a
-            href="https://github.com/Passetti-cmd"
-            target="_blank"
-            rel="noopener noreferrer"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="px-6 py-3 glass hover:border-cyan-500/50 text-slate-300 rounded-lg font-medium transition-colors flex items-center gap-2"
-          >
-            <Github className="w-4 h-4" />
-            GitHub
-          </motion.a>
-          <motion.a
-            href="https://www.linkedin.com/in/erick-passetti"
-            target="_blank"
-            rel="noopener noreferrer"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="px-6 py-3 glass hover:border-cyan-500/50 text-slate-300 rounded-lg font-medium transition-colors flex items-center gap-2"
-          >
-            <Linkedin className="w-4 h-4" />
-            LinkedIn
-          </motion.a>
-        </motion.div>
+            <motion.p
+              {...fadeUp(0.7)}
+              className="mt-8 max-w-[30ch] text-[1.4rem] leading-snug text-ink md:text-[1.6rem]"
+            >
+              {t.hero.lead}
+            </motion.p>
 
-        <motion.div
-          variants={itemVariants}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-        >
+            <motion.p {...fadeUp(0.8)} className="mt-4 max-w-[46ch] text-ink2">
+              {t.hero.sub(profile.location)}
+            </motion.p>
+
+            <motion.div {...fadeUp(0.9)} className="mt-9 flex flex-wrap items-center gap-3">
+              <a href="#work" onClick={(e) => scrollToId(e, "work")} className="btn-primary">
+                {t.hero.seeWork}
+              </a>
+              <a href="#contact" onClick={(e) => scrollToId(e, "contact")} className="btn-ghost">
+                {t.hero.emailMe}
+              </a>
+              {cvUrl && (
+                <a href={cvUrl} download className="btn-ghost">
+                  <Download className="h-4 w-4" />
+                  {t.hero.downloadCv}
+                </a>
+              )}
+              <span className="mx-1 hidden h-6 w-px bg-rule sm:block" aria-hidden />
+              <a
+                href={profile.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={t.hero.github}
+                className="grid h-11 w-11 place-items-center rounded-full text-ink2 transition-colors hover:bg-ink/5 hover:text-ink"
+              >
+                <Github className="h-5 w-5" />
+              </a>
+              <a
+                href={profile.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={t.hero.linkedin}
+                className="grid h-11 w-11 place-items-center rounded-full text-ink2 transition-colors hover:bg-ink/5 hover:text-ink"
+              >
+                <Linkedin className="h-5 w-5" />
+              </a>
+            </motion.div>
+          </div>
+
           <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ repeat: Infinity, duration: 2 }}
+            className="lg:col-span-6"
+            initial={{ opacity: 0, y: 24, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 1, delay: 0.45, ease }}
           >
-            <ArrowDown className="w-6 h-6 text-slate-400" />
+            <FleetSchematic />
           </motion.div>
+        </div>
+
+        <motion.div {...fadeUp(1.1)} className="mt-16 md:mt-20">
+          <Metrics />
         </motion.div>
-      </motion.div>
-    </div>
+      </div>
+      <div className="h-20 md:h-28" />
+    </section>
   );
 };
 

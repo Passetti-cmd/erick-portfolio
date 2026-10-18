@@ -2,16 +2,67 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Erick Passetti - Software Engineer — Backend &amp; Automation</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <title>Erick Passetti, Backend Engineer</title>
+    <meta name="description" content="Backend engineer building resilient automation systems with Node.js, TypeScript and AWS." />
+    <meta name="author" content="Erick Passetti" />
+    <link rel="canonical" href="https://passetti-cmd.github.io/erick-portfolio/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Erick Passetti" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:title" content="Erick Passetti, Backend Engineer" />
+    <meta property="og:description" content="Backend engineer building resilient automation systems with Node.js, TypeScript and AWS." />
+    <meta property="og:url" content="https://passetti-cmd.github.io/erick-portfolio/" />
+    <meta property="og:image" content="https://passetti-cmd.github.io/erick-portfolio/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Erick Passetti, Backend Engineer. Node.js, TypeScript and AWS." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Erick Passetti, Backend Engineer" />
+    <meta name="twitter:description" content="Backend engineer building resilient automation systems with Node.js, TypeScript and AWS." />
+    <meta name="twitter:image" content="https://passetti-cmd.github.io/erick-portfolio/og-image.png" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#EEF1F4" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0C1018" media="(prefers-color-scheme: dark)" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Erick Passetti",
+        "jobTitle": "Software Engineer, Backend & Automation",
+        "description": "Backend engineer building resilient automation systems with Node.js, TypeScript and AWS.",
+        "url": "https://passetti-cmd.github.io/erick-portfolio/",
+        "image": "https://passetti-cmd.github.io/erick-portfolio/og-image.png",
+        "email": "mailto:erickpassetti23@gmail.com",
+        "address": { "@type": "PostalAddress", "addressLocality": "São Paulo", "addressCountry": "BR" },
+        "alumniOf": { "@type": "CollegeOrUniversity", "name": "Universidade São Judas Tadeu" },
+        "knowsAbout": ["Node.js", "TypeScript", "Python", "Playwright", "AWS", "MySQL", "REST APIs", "Backend engineering", "Web automation"],
+        "sameAs": ["https://github.com/Passetti-cmd", "https://www.linkedin.com/in/erick-passetti"]
+      }
+    </script>
+
+    <!-- Apply a saved theme before first paint so there is no flash. -->
+    <script>
+      try {
+        var t = localStorage.getItem("theme");
+        if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+      } catch (e) {}
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="./src/main.tsx"></script>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
-

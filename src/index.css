@@ -2,23 +2,144 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  body {
-    @apply bg-slate-950 text-slate-100 antialiased;
-    font-family: 'Inter', sans-serif;
+/* Colors are RGB channels so Tailwind opacity modifiers work (bg-ink/10). */
+:root {
+  --bg: 238 241 244;
+  --surface: 248 249 251;
+  --ink: 15 23 41;
+  --ink-2: 75 85 104;
+  --ink-3: 112 122 140;
+  --rule: 205 211 220;
+  --signal: 36 72 245;
+  --ok: 20 138 85;
+  --warn: 196 106 18;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: 12 16 24;
+    --surface: 19 25 38;
+    --ink: 231 235 242;
+    --ink-2: 163 173 189;
+    --ink-3: 120 131 150;
+    --rule: 37 48 68;
+    --signal: 128 152 255;
+    --ok: 57 201 138;
+    --warn: 242 161 74;
+    color-scheme: dark;
   }
+}
+
+:root[data-theme="dark"] {
+  --bg: 12 16 24;
+  --surface: 19 25 38;
+  --ink: 231 235 242;
+  --ink-2: 163 173 189;
+  --ink-3: 120 131 150;
+  --rule: 37 48 68;
+  --signal: 128 152 255;
+  --ok: 57 201 138;
+  --warn: 242 161 74;
+  color-scheme: dark;
+}
+
+@layer base {
   html {
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-bg text-ink antialiased;
+    font-family: "Instrument Sans", system-ui, sans-serif;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    font-feature-settings: "ss01", "cv11";
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  ::selection {
+    background: rgb(var(--signal) / 0.2);
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--signal));
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
-@layer utilities {
-  .text-gradient {
-    @apply bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-400 bg-clip-text text-transparent;
+@layer components {
+  /* Display type: the width axis is part of the identity. */
+  .display {
+    font-stretch: 75%;
+    font-variation-settings: "wdth" 75;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 0.92;
   }
-  
-  .glass {
-    @apply bg-slate-900/50 backdrop-blur-md border border-slate-800/50;
+
+  .section-title {
+    @apply display text-[2.5rem] md:text-[3.25rem];
+    line-height: 1;
+  }
+
+  .page {
+    @apply mx-auto w-full max-w-page px-4 sm:px-8;
+  }
+
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.3s ease;
+  }
+  .link-underline:hover,
+  .link-underline:focus-visible {
+    background-size: 100% 1px;
+  }
+
+  .chip {
+    @apply inline-flex items-center rounded-full border border-rule px-2.5 py-0.5 text-sm text-ink2;
+  }
+
+  .btn {
+    @apply inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[0.95rem] font-medium transition-colors;
+  }
+  .btn-primary {
+    @apply btn bg-ink text-bg hover:bg-signal;
+  }
+  .btn-ghost {
+    @apply btn border border-rule text-ink hover:border-ink;
+  }
+
+  .blueprint {
+    background-image:
+      linear-gradient(rgb(var(--rule) / 0.55) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(var(--rule) / 0.55) 1px, transparent 1px);
+    background-size: 32px 32px;
+    mask-image: radial-gradient(ellipse 80% 70% at 70% 40%, black 30%, transparent 75%);
   }
 }
 
+/* Schematic packets are decoration: hide them for reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  .packet {
+    display: none;
+  }
+}

@@ -1,125 +1,75 @@
-import { motion } from "framer-motion";
-
-type ExperienceItem = {
-  title: string;
-  company: string;
-  period: string;
-  location: string;
-  type: string;
-  summary?: string;
-  responsibilities: string[];
-};
-
-const experiences: ExperienceItem[] = [
-  {
-    title: "Software Engineer",
-    company: "Saúde Bliss",
-    period: "Mar 2025 – Present",
-    location: "São Paulo, Brazil · Hybrid",
-    type: "Full-time",
-    summary:
-      "Backend and automation engineering for an insurtech platform used by health insurance brokers.",
-    responsibilities: [
-      "Own and maintain a fleet of 5–6 production Playwright robots (TypeScript/Node.js) that automate insurance quoting across major Brazilian health insurers' portals.",
-      "Added observability to the robots (structured logs, traces, CloudWatch metrics) to detect and diagnose failures faster.",
-      "Continuously refactor and harden automations as third-party portals change.",
-      "Created repositories and standardized project templates (Golden Path) so new services start from a consistent structure.",
-      "Operate services on AWS (EC2, S3, CloudWatch) and configure IAM policies for access control.",
-      "Write and run MySQL queries to support backend operations and data consistency.",
-      "Work with senior engineers on technical decisions and design trade-offs.",
-    ],
-  },
-  {
-    title: "Data Analyst Intern",
-    company: "SESI São Paulo",
-    period: "Jan 2025 – Mar 2025",
-    location: "São Paulo, Brazil · On-site",
-    type: "Internship",
-    responsibilities: [
-      "Built SQL and Python ETL pipelines that improved data consistency and reporting reliability.",
-      "Automated recurring data workflows to reduce manual effort.",
-      "Delivered Power BI dashboards and translated business requirements into data models.",
-    ],
-  },
-  {
-    title: "IT Support & Infrastructure Analyst",
-    company: "Preçolândia Comercial",
-    period: "Sep 2023 – Aug 2024",
-    location: "São Paulo, Brazil · On-site",
-    type: "Full-time",
-    responsibilities: [
-      "Supported ERP systems, networks and end-user infrastructure in a retail environment.",
-      "Automated routine tasks and data organization to improve reporting efficiency.",
-      "Gathered requirements from business users and turned them into technical adjustments.",
-    ],
-  },
-];
+import { useRef } from "react";
+import { motion, useScroll, useSpring } from "motion/react";
+import { Section } from "./ui";
+import { useContent } from "../i18n";
 
 const Experience = () => {
-  return (
-    <section className="py-24 px-4 sm:px-6 lg:px-8 bg-slate-900/30">
-      <div className="max-w-4xl mx-auto">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-4xl md:text-5xl font-bold mb-16 text-center"
-        >
-          <span className="text-gradient">Experience</span>
-        </motion.h2>
+  const { experience, t } = useContent();
+  const listRef = useRef<HTMLOListElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: listRef,
+    offset: ["start 75%", "end 55%"],
+  });
+  const draw = useSpring(scrollYProgress, { stiffness: 120, damping: 30 });
 
-        <div className="space-y-8">
-          {experiences.map((exp, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.2 }}
-              className="glass rounded-xl p-8"
-            >
-              <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
-                <div>
-                  <h3 className="text-2xl font-semibold text-slate-100 mb-1">
-                    {exp.title}
-                  </h3>
-                  <p className="text-cyan-400 text-lg mb-1">{exp.company}</p>
-                  <p className="text-slate-400 text-sm">{exp.location}</p>
-                  {exp.type && (
-                    <span className="inline-block mt-2 px-2 py-1 text-xs bg-slate-800/50 text-slate-300 rounded">
-                      {exp.type}
-                    </span>
-                  )}
-                </div>
-                <span className="text-slate-400 font-mono mt-2 md:mt-0 text-sm">
-                  {exp.period}
-                </span>
-              </div>
-              {exp.summary && (
-                <p className="text-slate-300 leading-relaxed mt-4">
-                  {exp.summary}
-                </p>
+  return (
+    <Section
+      id="work"
+      title={t.nav.work}
+      intro={t.sections.workIntro}
+    >
+      <ol ref={listRef} className="relative">
+        {/* Rail, and the part of it you have scrolled past */}
+        <span aria-hidden className="absolute bottom-2 left-[5px] top-2 w-px bg-rule" />
+        <motion.span
+          aria-hidden
+          className="absolute bottom-2 left-[5px] top-2 w-px origin-top bg-signal"
+          style={{ scaleY: draw }}
+        />
+
+        {experience.map((job, i) => {
+          const current = job.current;
+          return (
+            <li key={job.company} className={`relative pl-10 ${i > 0 ? "mt-16" : ""}`}>
+              <span aria-hidden className="absolute left-0 top-[0.55rem] flex h-[11px] w-[11px]">
+                {current && (
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-ok opacity-50" />
+                )}
+                <span
+                  className={`relative inline-flex h-[11px] w-[11px] rounded-full border-2 ${
+                    current ? "border-ok bg-ok" : "border-ink3 bg-bg"
+                  }`}
+                />
+              </span>
+
+              <p className="text-[0.95rem] text-ink3">
+                <time>{job.start}</time> – <time>{job.end}</time>
+              </p>
+              <h3 className="mt-1 text-[1.6rem] font-semibold leading-tight tracking-[-0.01em]">
+                {job.title}
+                <span className="font-normal text-ink2">, {job.company}</span>
+              </h3>
+              <p className="mt-1 text-ink3">
+                {job.type}, {job.location}
+              </p>
+
+              {job.summary && (
+                <p className="mt-5 max-w-[60ch] text-[1.125rem] text-ink">{job.summary}</p>
               )}
-              <ul className="space-y-2 mt-6">
-                {exp.responsibilities.map((resp, i) => (
-                  <motion.li
-                    key={i}
-                    initial={{ opacity: 0, x: -10 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.2 + i * 0.05 }}
-                    className="text-slate-300 flex items-start gap-3"
-                  >
-                    <span className="text-cyan-400 mt-1.5">▸</span>
-                    <span>{resp}</span>
-                  </motion.li>
+
+              <ul className="mt-5 max-w-[66ch] space-y-3 text-ink2">
+                {job.highlights.map((h) => (
+                  <li key={h} className="relative pl-5">
+                    <span aria-hidden className="absolute left-0 top-[0.7em] h-px w-2.5 bg-ink3" />
+                    {h}
+                  </li>
                 ))}
               </ul>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
+            </li>
+          );
+        })}
+      </ol>
+    </Section>
   );
 };
 
