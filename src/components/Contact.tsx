@@ -96,25 +96,27 @@ const Contact = () => {
               <Download className="h-4 w-4" /> {t.hero.downloadCv}
             </a>
           )}
-          <span className="mx-1 hidden h-6 w-px bg-rule sm:block" aria-hidden />
-          <a
-            href={profile.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={t.hero.github}
-            className="grid h-11 w-11 place-items-center rounded-full text-ink2 transition-colors hover:bg-ink/5 hover:text-ink"
-          >
-            <Github className="h-5 w-5" />
-          </a>
-          <a
-            href={profile.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={t.hero.linkedin}
-            className="grid h-11 w-11 place-items-center rounded-full text-ink2 transition-colors hover:bg-ink/5 hover:text-ink"
-          >
-            <Linkedin className="h-5 w-5" />
-          </a>
+          {/* Icons travel as one unit so they never split across lines. */}
+          <div className="flex items-center gap-1">
+            <a
+              href={profile.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={t.hero.github}
+              className="grid h-11 w-11 place-items-center rounded-full text-ink2 transition-colors hover:bg-ink/5 hover:text-ink"
+            >
+              <Github className="h-5 w-5" />
+            </a>
+            <a
+              href={profile.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={t.hero.linkedin}
+              className="grid h-11 w-11 place-items-center rounded-full text-ink2 transition-colors hover:bg-ink/5 hover:text-ink"
+            >
+              <Linkedin className="h-5 w-5" />
+            </a>
+          </div>
         </div>
       </div>
     </section>
